@@ -120,7 +120,7 @@ function pointers are mostly used as function arguments to give a function to a 
 
 ##### STACK
 
-![stack_full](/Misc/assets/404px-ProgramCallStack2_en.svg.png)
+![stack_full](https://en.wikipedia.org/wiki/Stack-based_memory_allocation#/media/File:ProgramCallStack2_en.svg)
 
 when we initalize memory by doing virtually anything, like starting a program with a main or creating a function or 
 creating variables we allocate memory on the stack one after the other, here is an example of what i mean:
@@ -133,11 +133,11 @@ int	main(void)
 	return (0);
 }
 ```
-here we begin allocating memory by creating a main then the arguments might come after and the variable var, memory 
-allocation is a little more complicated but this will do to understand the stack and how pointers can interact with
-it, all that memory allocated goes from top to bottom this is how the stack works, and that memory stays within the scope
-of the function and together, meaning that the memory addresses are together in order of when they were created.
+here we begin allocating memory in the stack by creating a main then the arguments and the memory address of main gets pushed down in the stack and again with the variable var it gets pushed further down.
 
+all that memory allocated goes from top to bottom, this is how the stack works, and that memory stays within the scope
+of the function and together, meaning that the memory addresses are together in order of when they were created in physical memory, the program memory constantly changes location as memory gets rewritten but memory in the same scope stays together.
 
+##### WIP
 it is generally a bad idea to read uninitialized memory you might come across some bugs, for example using the function 
 strlcat on an uninitialized string will return a random integer based on where the string is created in the stack.
