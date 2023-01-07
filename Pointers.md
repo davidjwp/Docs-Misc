@@ -120,7 +120,7 @@ function pointers are mostly used as function arguments to give a function to a 
 
 ##### STACK
 
-![stack_full](https://upload.wikimedia.org/wikipedia/commons/a/ac/ProgramCallStack2_en.svg)
+![stack_full](/Misc/assets/404px-ProgramCallStack2_en.svg.png)
 
 when we initalize memory by doing virtually anything, like starting a program with a main or creating a function or 
 creating variables we allocate memory on the stack one after the other, here is an example of what i mean:
