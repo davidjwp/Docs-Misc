@@ -1,35 +1,47 @@
-automatic Makefile variables/make operands and prefix (the most useful so far)
+## Makefile
+##### non exaustive list of useful info on Makefiles
 
-$<	the first prerequisite
+a Makefie is made up of targets, prerequisites and rules.
 
-$^	all the prerequisites
+the Makefile will look at the target as a creatable file and use the rule to make it, if something is needed to create that target it will look at the prerequisite which can be itself a target, like a function in a programm once that target is done it will use that creation in the original target.
 
-$%	the member of target archive, for example the rule below:
+here is a basic Makfile rule:
 
-	TargetArchive(member.o OtherMember.o):
-		ar rc TargetArchive member.o OtherMember.o
+    target:prerequisite
+        rule
+applied to output a "hey!"
+    
+    hello:
+        echo hey!
+in this case there is no need for any dependency/prerequisite, a rule does not need a prerequisite but it needs a target, it also does not need a rule command though it would make the rule useless.
 
-	the target is an archive a .a and the members are it's composites
-	the rule creates an archive with the members an $% is the first member 
+you can also declare variables in makefiles like so:
 
-$@	the target name
+    NAME    = variable  
+
+a variable could be anything you want, it could be a bash command or text or another variable, variable are used with the % prefix like this 
+
+    %(NAME)
+
+At the fundamental level Makefiles help you compiles a very large and complex amount of files for big projects though they can do much more.
+**automatic variables/make operands and prefix (the most useful so far)**
+
+- **$@**    target name
+- **$<**    first prerequisite
+- **$^**    all prerequisites
+- **$%**    member/s of target
+
+
+	Target(member.o OtherMember.o):
+		$(RULE)
+
+**general info**
 
 .PHONY	is a target that stipulates the Makefile that the prerequisite target is not a build (a build is for when a target specifically creates a file
 	every target is a build by default)
 
 @	this prefix is used to tell the makefile not to display the command being executed,
 	thus it is used before a command
-
-
-
-TARGET: PREREQUISITE
-	(this is where the rule command would be, a rule does not need a prerequisite but it needs a target, it also does not need a rule command though it would make the rule useless)
-
-VARIABLE	= (a variable could be anything you want, it could be a bash command or text or another variable)
-
-At the fundamental level Makefiles help you compiles a very large and complex amount of files for big projects though they can do much more.
-
-Makefiles are made up of rules which are in turn made up of what we call targets and prerequisites, let's try and make an example of the most simple possible rendition of a Makefile who's purpose is to compile a .c file into a .o file then compile the .o file into an executable:
 
 FileName: file.o
 	gcc file.o -o FileName
