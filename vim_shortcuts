@@ -1,0 +1,4 @@
+$ for back of line
+^ for beginning of line 
+w one word forward 
+b back one word 
