@@ -1,4 +1,4 @@
-# Documentation 📑️
+# DOCS/MISC 📑️
 **this repository contains all the gathered documentation and information gathered during my learning process.**
 **The repo contains additional useful utilities in the Misc folder**
 

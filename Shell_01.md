@@ -1,28 +1,65 @@
-Shell_01:::::::::
-COMMAND_LINES::::
-:::::::::::::::::
+# **Shell_01**
+### COMMAND_LINES
+
+*collection of information on shell utilities*
+*for further more detailed information it is better to use the manual*
 
 
-$cd	to go into a directory
-$cd ../	to go out of a directory
+**cd** 
+*current directory: used to change the current directory*
+    
+    $cd directory/subdir
+    $cd ../../
+**pwd**
+*Print Working Directory: outputs the path to current directory*
 
-$pwd	Print Work Directory
+    $pwd
+**ls**
+*list directory content: list information about the files in the directory(current by default)*
 
-$ls	print content of current directory man manue
+    $ls
+    $ls directory/
+**man**
+*manual: an interface to the system reference manuals*
 
-$man	manual
+    $man cd
+    $man pwd
+**cat**
+*concatenate files and print on the standard output*
 
-$cat		read and write files 
-$cat (file) 	to create and write in the file ^d to exit 
+    $cat file.c
 
-$tar	an archiving utility
-	create a tar archive with $tar -cf (archive name) (files included)
+**tar**	
+*an archiving utility*
+    
+    $tar -cf archname file.c
+-   **-c** create
+-   **-f** file
 
-$ln to create hard links and parameter option -s to create symbolic links
+**ln** 
+*link name: make link between files*
 
-$chmod options mode file
+    $ln file linkname
+    $ln -s file linkname
+-   **-s** symbolic link
 
-$touch -t YYYYMMDDHHMM.SS to change file modification time 
+**chmod** 
+*change mode: change file mode bits(file permissions)*
+
+    $chmod a+rwx file
+    $chmod ug-r file2
+-   **u** user
+-   **g** group
+-   **o** other
+-   **a** all
+-   **r** read
+-   **w** write
+-   **x** execute
+
+**touch** 
+*change file timestamps (can also be used to create and write in file)*
+
+-t YYYYMMDDHHMM.SS to change file modification time 
 
 $tr 'char1' 'char2' command line translate or delete characters of char1 to char2 
 
