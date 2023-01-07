@@ -1,6 +1,6 @@
-## Makefile
-##### non exaustive list of useful info on Makefiles
-
+# Makefile
+### A non exaustive list of useful info on Makefiles
+#### Basics
 a Makefie is made up of targets, prerequisites and rules.
 
 the Makefile will look at the target as a creatable file and use the rule to make it, if something is needed to create that target it will look at the prerequisite which can be itself a target, like a function in a programm once that target is done it will use that creation in the original target.
@@ -24,18 +24,54 @@ a variable could be anything you want, it could be a bash command or text or ano
     %(NAME)
 
 At the fundamental level Makefiles help you compiles a very large and complex amount of files for big projects though they can do much more.
+
+let's see how to compile a programm :
+
+    FileName: file.o
+	    gcc file.o -o FileName
+    
+    file.o: file.c
+    	gcc -c file.c 
+from up to down the Makefile looks at the first rul "Filename" which needs the dependency "file.o", "file.o" is a rule that compiles the c file into an object file.
+
+it then uses the object file to create the output file "FileName".
+
+now let's try a more complicated Makefile by simply adding more
+
+    FileName: file1.o file2.o file3.o file3.o file4.o
+	    gcc file1.o file2.o file3.o file3.o file4.o -o FileName
+    
+    file1.o file2.o file3.o file3.o file4.o: file1.c file2.c file3.c file3.c file4.c
+	    gcc -c file1.c file2.c file3.c file3.c file4.c
+
+The Makefile is suddendly a lot messier and harder to work with so let's use variables
+    
+    CC      = gcc
+    NAME    = FileName
+    
+    $(NAME): %.o
+	    $(CC) %.o -o $(NAME)
+
+    %.o: %.c
+	    $(CC) -c
+
+Things have gotten much clearer but more complex as well, the variable CC corresponds to the gcc command then NAME is whatever we choose that way there is no need to replace the name if change it everytime it is written, the '%' s a pattern rule, which is a type of implicit rule. It specifies one target and one dependency, and causes one invocation of $(CC) for each target.
+
+() and {} are the same and can be used interchangeably (but the squiggly looks cooler)
 **automatic variables/make operands and prefix (the most useful so far)**
 
 - **$@**    target name
 - **$<**    first prerequisite
 - **$^**    all prerequisites
 - **$%**    member/s of target
-
-
-	Target(member.o OtherMember.o):
-		$(RULE)
+- **$?**    names of the prerequisites that are newer than the target
+- **$***    the stem of the pattern rule, if file.a and %.a then stem is file
+            if no pattern rule then it will take the prefix, a.file.o then stem is a  
 
 **general info**
+
+    Target(member.o OtherMember.o):
+	    	$(RULE)
 
 .PHONY	is a target that stipulates the Makefile that the prerequisite target is not a build (a build is for when a target specifically creates a file
 	every target is a build by default)
@@ -43,54 +79,16 @@ At the fundamental level Makefiles help you compiles a very large and complex am
 @	this prefix is used to tell the makefile not to display the command being executed,
 	thus it is used before a command
 
-FileName: file.o
-	gcc file.o -o FileName
+the variable ${MAKE} is a recursive call to the Makefile and does not need to be 
+#### STANDARD RULES
 
-file.o: file.c
-	gcc -c file.c 
+there are some standard rules used often to accomplish certain tasks and although we can call them by any name they do have names to recognize them by, here are some of them:
 
-The Makefile sees the first rule and checks the prerequisite for the target, in this case the target is FileName this is the file we are trying to create using the object file, the object file does not exist so it will check for a rule that can.
-
-Thus the next rule is in effect, the Makefile compiles file.c using the compiler option -c to output an object file, then the first rule can be fullfilled.
-
-Now let's try a more complicated Makefile by simply adding files:
-
-FileName: file1.o file2.o file3.o file3.o file4.o
-	gcc file1.o file2.o file3.o file3.o file4.o -o FileName
-
-file1.o file2.o file3.o file3.o file4.o: file1.c file2.c file3.c file3.c file4.c
-	gcc -c file1.c file2.c file3.c file3.c file4.c
-
-The Makefile is suddendly a lot messier and harder to work with so let's use variables:
-
-CC	= gcc
-NAME	= FileName
-
-${NAME}: %.o
-	${CC} %.o -o ${NAME}
-
-%.o: %.c
-	${CC} -c
-
-Things have gotten much clearer but more complex as well, first we declare the variable CC which will correspond to the gcc command, then NAME is gonna be the name of our executable file.
-
-Then we use the variable NAME as target for the first rule with as a prerequesite %.o which is a pattern rule the symbol % contains the target pattern in this case it's all files ending in .o much like *.o in bash.
-
-The rule compiles with the CC variable, selects all object files and renames them with the NAME variable.
-
-The second rule creates our object files by using those same variables
-To use a variable simply use ${VARIABLE} or $(VARIABLE) same thing but the squiggly lines look cooler, you can also use the variable ${MAKE} which is a recursive call to the Makefile and does not need to be set.
-
-...STANDARD RULES...:
-
-There are some standard rules used often to accomplish certain tasks and although we can call them by any name they do have names to recognize them by, here are some of them:
-
-${NAME}: 
-	
-^defines the build of the file NAME, it is better used with the rule
-all
+**${NAME}:** 
+*defines the build of the file NAME, it is better used with the rule all*
 
 example:
+	
 	.PHONY: all
 	
 	all: ${NAME}
@@ -98,11 +96,10 @@ example:
 	${NAME}: ${OBJS}
 		${CC} ${CFLAGS} ${OBJS} -o $@ 
 
--	-	-	-	-
+---
 
-all: 
-
-^all compiles the entire program and should be the first target for make 
+**all:** 
+*compiles the entire program and should be the first target for make* 
 
 example:
 
@@ -114,27 +111,28 @@ example:
 
 	%.o: %.c
 		${CC} ${CFLAGS} -c %.c
--	-	-	-	-
+---
 
-clean:
-	rm %.o
+**clean:**
+*clean is a simple and clean shell command* 
+*simple and clean is the way that i want you to be when you write a Makefile* 
 
-^clean is a simple and clean shell command, 
-simple and clean is the way that i want you to be when you write a Makefile 
+ 
+    clean:	
+	    rm %.o
 
--	-	-	-	-
+---
 
-fclean:
-	rm -f ${FILE}
+**fclean:**
+*fclean goes for file clean, the same use as clean but more targeted*
 
-^fclean goes for file clean, the same use as clean but more targeted
+    fclean:
+	    rm -f ${FILE}
 
+---
 
--	-	-	-	-
-
-re:
-	
-^re is used mostly for repeating a step or include another rule
+**re:**
+*reset is used mostly for repeating a step or include another rule*
 
 example:
 
@@ -146,41 +144,37 @@ or
 		${MAKE} fclean
 		${MAKE} all
 
--	-	-	-	-
+---
 
-bonus:
-	${MAKE} WITH_BONUS=1 all
+**bonus:**
+*the bonus target serves to add bonus files to compilation*
+*using this method you can choose wether or not to compile with some files*
 
-^the bonus target serves to add bonus files to compilation,
-using this method you can choose wether or not to compile with some files
+	bonus:
+	    ${MAKE} WITH_BONUS=1 all
 
 example:
 
-NAME		= exe
-CC		= gcc
-CFLAGS		= -Wall -Wextra -Werror
-REG_OBJS	= file1.o file2.o
-BONUS_OBJS	= file3.o file4.o
+    REG_OBJS	= file1.o file2.o
+    BONUS_OBJS	= file3.o file4.o
+    
+    ifdef WITH_BONUS
+    REG_OBJS	= ${REG_OBJS} ${BONUS_OBJS}
+    endif
+    
+    name: ${REG_OBJS}
+	    gcc ${REG_OBJS} -o $@
+    
+    bonus:
+	    ${MAKE} WITH_BONUS=1 all 
+	    
+or
 
-ifdef WITH_BONUS
-REG_OBJS	= ${REG_OBJS} ${BONUS_OBJS}
-endif
-
-.PHONY: all clean re bonus
-
-all: ${NAME}
-
-${NAME}: ${REG_OBJS}
-	${CC} ${CFLAGS} ${REG_OBJS} -o $@ | re
-
-clean: 
-	rm %.o
-
-fclean:
-	rm ${BONUS_OBJS}
-
-re: 
-	${MAKE} all
-	${MAKE} fclean
-bonus:
-	${MAKE} WITH_BONUS=1 all 
+    REG_OBJS	= file1.o file2.o
+    BONUS_OBJS	= file3.o file4.o
+    
+    name: ${REG_OBJS}
+	    gcc ${REG_OBJS} -o $@
+    
+    bonus: ${BONUS_OBJS}
+	    gcc ${BONUS_OBJS} -o $@
