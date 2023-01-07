@@ -1,34 +1,32 @@
-POINTERS.	.	.	.	.	.	.	.	.	.	.	.	.	.	.
+# Memory
 
-This is a little lesson on pointers and how to use them to the fullest, first of what is a pointer?
+**a brief overview of how memory works in the c language**
 
-A pointer is a variable that stores the physical address in memory of another variable, we say the pointer references that
-variable and we can then dereference that variable to access the actual value in memory of that variable.
+##### POINTERS
+
+A pointer is a variable that stores the physical address in memory of another variable or value
+we say the pointer references that variable and we can then dereference that variable to access the actual 
+value of the what the pointer points to in memory.
 
 c is a low level language with a high focus on memory management thus pointers are extremely useful and are used for
 numerous different things. 
 
-
-
-
 since pointers store memory addresses and this address is a number it can be added or substracted like any other variable
 here is an example :
-
+```
 int	*ptr;
 int	var;
 
 ptr = var;
 ptr++;
-
-in this example the pointer iterates the address of var and points to the next memory location in the stack, if we check 
-what memory address ptr is now referencing we would get a random value since that memory address has not been initialized.
+```
+in this example the pointer iterates it's pointed address and points to the next memory address, if we dereference ptr we would get a random value since that memory address has not been initialized.
 
 when a pointer that has been iterated gets passed into an argument, the functions pointer created as argument 
-takes the pointer given from that position, here is an example :
-
+takes the address of the passed pointer as it's value, here is an example :
+```
 int	*function(int *ptr2)
 {
-	//ptr  starts at the position
 	for(int i = 0; i < 5; i++)
 		ptr2++;
 	return (ptr2);
@@ -36,20 +34,18 @@ int	*function(int *ptr2)
 
 int	main(void)
 {
-	//the array ptr0 is created 
 	int	ptr0[] = {0 ,1 ,2 ,3 ,4 ,5 ,6 ,7 ,8 ,9};
-	int	*ptr1;
-	
-	//ptr1 points to the first element of ptr0
-	ptr1 = ptr0;
-	//ptr1 is iterated to point to 5 from ptr0
+	int	*ptr1 = ptr0;
+
 	for(int i = 0; i < 5; i++)
 		 ptr1++;
-	//ptr1 gives it's address to ptr2, after ptr2 iterates 5 times it returns it's
-	//position to ptr1, thus ptr1 points to address value 9 of ptr0
 	ptr1 = function(ptr1);
 	return (0);
 }
+```
+
+in this example the we iterate over an array of 10 to 5, then give that pointer to a function which does the same thing
+
 
 pointers can also be compared in if loops just like a regular variable, but it will compare the memory address instead 
 of a regular number like so :
@@ -107,7 +103,7 @@ returning a + 5, thus the loop adds 5 five times, at the end of the loop a = 25.
 STACK.	.	.	.	.	.	.	.	.	.	.	.	.	.	.	.
 when we initalize memory by doing virtually anything like starting a program with a main or creating a function or 
 creating variables we allocate memory on the stack one after the other, here is an example of what i mean:
-
+```
 int	main(void)
 {
 	int	var;
@@ -115,7 +111,7 @@ int	main(void)
 	var = 5;
 	return (0);
 }
-
+```
 here we begin allocating memory by creating a main then the arguments might come after and the variable var, memory 
 allocation is a little more complicated but this will do to understand the stack and how pointers can interact with
 it, all that memory allocated goes from top to bottom this is how the stack works, and that memory stays within the scope
