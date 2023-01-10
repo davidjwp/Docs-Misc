@@ -28,6 +28,8 @@
 
 [Edit sudoer file](https://www.digitalocean.com/community/tutorials/how-to-edit-the-sudoers-file-fr)
 
+[Netfilter for UTW](https://en.wikipedia.org/wiki/Netfilter)
+
 
 **Hardware 🖥️**
 

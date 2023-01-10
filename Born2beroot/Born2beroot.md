@@ -20,7 +20,7 @@ It is better for servers and faster to update but less portable and stable.
 
 #### install utilities
 
-**install SSH/sudo/vim/UFW**
+**install SSH/sudo/UFW**
 
 the first step is gonna be to change current user to root
 
@@ -43,21 +43,18 @@ APT contains apt-get/cache and other utilities.
 
 so the command apt brings all thoses under a nice little package 📦️
 
-    apt install vim
-
-install vim
+install ssh
 
     apt install openssh-server
 
-install ssh
+install UFW
 
     apt install ufw
 
-install UFW
 
 #### configure utilities 
 
-**configure SSH service/sudo**
+**configure SSH service/sudo/UFW**
 
 1. SUDO
 
@@ -102,3 +99,39 @@ you can check the SSH status with this
     sudo systemctl status ssh
 
 systemctl goes for system contrl, to control the systemd system and service manager, it's used to introspect and control the state of the "systemd" system and service manager
+
+ssh is currently installed, to make sure it is running let's restart
+    service {service} [OPTION] ##this isn't exactly the prototype for this command
+    service ssh restart
+
+the service command is used to control SysVinit(System V initalisation) services through SysVinit scripts, System V is just the name for one of the first commercial version of UNIX
+
+now change the default port(22) to 4242
+
+    sudo nano /etc/ssh/sshd_config
+
+nano is the default debian text editor
+
+look for the line
+
+    #Port 22
+
+and simply change it to
+
+    #Port 4242
+
+you can check for that the line is properly changed with grep
+
+    sudo grep /etc/ssh/ssh_config
+
+then restart ssh again
+
+3. UFW
+
+UFW or Uncomplicated Firewall is a program for managing a netfilter firewall
+
+before you can connect to the ssh server you have to configurr ufw
+first off enable ufw
+
+    sudo ufw enable
+
