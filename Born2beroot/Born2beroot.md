@@ -12,79 +12,93 @@ Rocky linux is a distribution system based on the Red hat distro one of the most
 
 It is better for servers and faster to update but less portable and stable.
 
-
-
-
 #### install OS
 
 **installing OS on VMbox**
 
 
 
-#### install SSH
+#### install utilities
 
-**install SSH and configure server**
+**install SSH/sudo/vim/UFW**
 
+the first step is gonna be to change current user to root
 
-#### 
+    su [options] [-] [user [argument...]]
+    su -
 
-fdisk
+the su command goes for substitute user and allows you to run commands with a substitute user, if no user is defined then it will default to root.
 
-lsblk
+here the flag [-] means login
 
-blkid
+now you can install sudo which allows you to execute a command as the superuser or another user.
 
+    apt-get update
+    apt-get upgrade
+    apt install sudo
 
+really there is no difference between doing apt-get and apt,
+the apt command is a shell front end for APT (Advanced Packaging Tool),
+APT contains apt-get/cache and other utilities.
 
-### 2. Device Mapper
-The device mapper is a framework provided by the Linux kernel for mapping physical block devices onto higher-level virtual block devices. It forms the foundation of the logical volume manager (LVM), software RAIDs and dm-crypt disk encryption, and offers additional features such as file system snapshots.
+so the command apt brings all thoses under a nice little package 📦️
 
-Device mapper works by passing data from a virtual block device, which is provided by the device mapper itself, to another block device. Data can be also modified in transition, which is performed, for example, in the case of device mapper providing disk encryption or simulation of unreliable hardware behavior.
+    apt install vim
 
-The following mapping targets are available:
+install vim
 
-cache – allows creation of hybrid volumes, by using solid-state drives (SSDs) as caches for hard disk drives (HDDs)
+    apt install openssh-server
 
-clone – will permit usage before a transfer is complete.
+install ssh
 
-crypt – provides data encryption, by using the Linux kernel’s Crypto API
+    apt install ufw
 
-delay – delays reads and/or writes to different devices (used for testing)
+install UFW
 
-era – behaves in a way similar to the linear target, while it keeps track of blocks that were written to within a user-defined period of time
+#### configure utilities 
 
-error – simulates I/O errors for all mapped blocks (used for testing)
+**configure SSH service/sudo**
 
-flakey – simulates periodic unreliable behaviour (used for testing)
+1. SUDO
 
-linear – maps a continuous range of blocks onto another block device
+now that everything you need is installed let's configure some of the utilities, first set user to sudo group.
 
-mirror – maps a mirrored logical device, while providing data redundancy
+    usermod [options] LOGIN
+    su -
+    usermod -aG sudo djacobs
 
-multipath – supports the mapping of multipathed devices, through usage of their path groups
+usermod goes for user modification, it allows you to modify the system account files to reflect the changes that are specified on the command line (i.e manage a user account)
 
-raid – offers an interface to the Linux kernel’s software RAID driver (md)
+the -a option adds the user to the supplementary group(s) it can only be used with the -G option which goes for the list of supplementary groups which the user is a also a member of.
 
-snapshot and snapshot-origin – used for creation of LVM snapshots, as part of the underlying copy-on-write scheme
+you can then check the sudo group like this
 
-striped – stripes the data across physical devices, with the number of stripes and the striping chunk size as parameters
+    getent group sudo
 
-thin – allows creation of devices larger than the underlying physical device, physical space is allocated only when written to
+now you need to edit the sudoers file to give user permission rights 
 
-zero – an equivalent of /dev/zero, all reads return blocks of zeros, and writes are discarded
+    sudo visudo
 
+use sudo to get permission to use visudo command that let's you edit the sudoers file, sudoers is a policy plugin that determines a user's sudo priviledges, it is the default sud policy plugin.
 
+once in the file write
 
+    djacobs ALL=(ALL) ALL
 
+a typical line is divided like so
 
+    root    ALL=(ALL:ALL) ALL
 
-A.1. IDE
-hdparm -i gives you more information about the hardware, like disk manufacturer, serial number and disk geometry.
+-   **root** username the rule applies to
+-   **ALL(1)** indicates the rule applies to ALL hosts
+-   **ALL(2)** indicates that this user can execute commands as ALL users
+-   **ALL(3)** indicates that this user can execute commands as ALL groups
+-   **ALL(4)** indicates the rule applies to ALL commands
 
-A.1.1 SATA
-Serial ATA is ATA over serial lines. SATA uses smaller cables, then parallel ATA, which leaves more room and thus better cooling in the computer housing. SATA also does not use the master/slave setup anymore and is hotplugable.
+2. SSH
 
-A.2. SCSI
-A.2.1. SAS
-Serial-attached SCSI has thinner cables, less bulky connectors and allows for longer cables. The hardware is cheaper and less prone to crosstalk.
+you can check the SSH status with this 
+    systemctl [OPTIONS...] COMMAND [UNIT...]
+    sudo systemctl status ssh
 
+systemctl goes for system contrl, to control the systemd system and service manager, it's used to introspect and control the state of the "systemd" system and service manager

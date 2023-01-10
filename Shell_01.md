@@ -110,3 +110,48 @@ virtual studios does not add a line which results in one less byte.
 
 
 file perimssions (XXX) owner(XXX) group (XXX) other (X) allow execute to remove permission use chmod u or g for user or group, - whatever you want to take out 
+
+remnants from Shell_02
+
+shell01
+ctrl a to go to the head of the line ctrl e to go to last line 
+
+rmdir --ignore-fail-on-non-empty 
+
+env command is a real program that allows you to see the shell environment 
+$ lets you to tell shell you want to use the name as a variable
+* placeholder to say all name types all .txt *.txt
+
+
+id #print real and effective user and group ID# -G #group# -n #name# $FT_USER | tr #translate or delete characters# ' ' # '[ESPACE]'# ',' #'[COMMA]'#
+prints the groups id while replacing spaces with a comma
+
+find . -type f -name "*.sh" -exec #execute basename which strips the directory and suffix from filenames# basename {} .sh \;
+finds and outputs every file with .sh while executing a command to take the suffix from filenames 
+
+basename NAME [SUFFIX]
+
+find . -type f,d #find type file,directory# | wc #print newline, word, and byte for each file# -l #--lines print the newline counts#
+finds files in the current and sub-directory and prints the number of regular files and directories
+
+ifconfig #allows configuration of the kernel between network interfaces#| awk #script language to manipulate data#'/ether/{print $2}' #print from line $2#
+awk options 'selection_criteria {action}' input-file > output-file 
+
+ar rc [LIBNAME] [*.o] ranlib
+
+creates a library with all the functions so you can simply reuse the library when compiling, use ranlib
+to create an index of the functions in your library so it can run faster, it allows the compiler to find where the function being used 
+is.
+
+ar dv [LIB_A] [FUNCT_O]
+
+
+used to remove a particular function from the library, LIB_A is the archive file and FUNCT_O is the object file of the function you whish to remove.
+
+norminette -R CheckForbiddenSourceHeader
+
+fdisk
+
+lsblk
+
+blkid

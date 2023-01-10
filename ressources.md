@@ -28,7 +28,6 @@
 
 [Edit sudoer file](https://www.digitalocean.com/community/tutorials/how-to-edit-the-sudoers-file-fr)
 
-[Red hat package manager](https://en.wikipedia.org/wiki/RPM_Package_Manager)
 
 **Hardware 🖥️**
 
