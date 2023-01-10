@@ -10,7 +10,8 @@ it is best viewed in the git viewer for Markdown
 | get_next_line | https://github.com/davidjwp/get_next_line |
 | ft_printf | https://github.com/davidjwp/ft_printf |
 
-WIP -   Shell_01.md
-WIP -   shell_02.md
-WIP -   docs
-WIP -   
+WIP - Shell_01.md
+
+WIP - shell_02.md
+
+WIP - docs
