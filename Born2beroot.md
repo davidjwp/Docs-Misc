@@ -14,6 +14,13 @@ https://knowitlikepro.com/understanding-extended-boot-record-ebr/
 
 https://tldp.org/LDP/Linux-Filesystem-Hierarchy/html/usr.html
 
+fdisk
+
+lsblk
+
+
+
+
 
 ### 2. Device Mapper
 The device mapper is a framework provided by the Linux kernel for mapping physical block devices onto higher-level virtual block devices. It forms the foundation of the logical volume manager (LVM), software RAIDs and dm-crypt disk encryption, and offers additional features such as file system snapshots.
