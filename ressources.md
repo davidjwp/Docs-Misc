@@ -1,18 +1,18 @@
 *This is a useful list of ressources on divers topics*
 
-**Makefiles😶‍🌫️️**
+**Makefiles 😶‍🌫️️**
 
 [Makefile rules](https://www.chiark.greenend.org.uk/doc/make-doc/make.html/Rules.html)
 
 [Makefile Manual](https://www.gnu.org/software/make/manual/html_node/index.html#SEC_Contents)
 
-**C🪖️**
+**C 🪖️**
 
 [Create librairy](https://www.cs.dartmouth.edu/~campbell/cs50/buildlib.html)
 
 [Malloc implementation](https://danluu.com/malloc-tutorial/)
 
-**Unix📦️**
+**Unix 📦️**
 
 [Device Mapper and LVM](https://blog.codefarm.me/2021/11/29/device-mapper-and-linux-lvm/)
 
@@ -28,7 +28,9 @@
 
 [Edit sudoer file](https://www.digitalocean.com/community/tutorials/how-to-edit-the-sudoers-file-fr)
 
-**Hardware🖥️**
+[Red hat package manager](https://en.wikipedia.org/wiki/RPM_Package_Manager)
+
+**Hardware 🖥️**
 
 [Understanding MBR](https://knowitlikepro.com/understanding-master-boot-record-mbr/)
 

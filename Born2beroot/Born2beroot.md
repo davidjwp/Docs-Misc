@@ -1,12 +1,32 @@
 in order of tasks:
 
-### choose OS
+#### choose OS
 
 **ROCKY VS DEBIAN**
 
+Debian is a more general purpose distribution, it comes out the box with more features and applications, it is focused primarely on stability and ease of use making it the basis for a lot of other distros like Ubuntu, Mint, Arch, Debian is maintained by a team of volunteers over the internet.
+
+It is more stable and portable, but slower to update.
+
+Rocky linux is a distribution system based on the Red hat distro one of the most used linux distributions, thus it is an excelent distro but Rocky is more targeted towards server use and comes in with very little functionnality for this reason, Rocky is worked on by The Rocky Enterprise Software Foundation. 
+
+It is better for servers and faster to update but less portable and stable.
 
 
 
+
+#### install OS
+
+**installing OS on VMbox**
+
+
+
+#### install SSH
+
+**install SSH and configure server**
+
+
+#### 
 
 fdisk
 
