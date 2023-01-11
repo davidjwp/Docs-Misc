@@ -1,5 +1,14 @@
 **the explanations in this file for some of the concepts remain mostly simplistic to keep it brief, additional information should be added to attain a greater understanding**
 
+# Contents
+
+- [choose OS](#choose-os)
+- [install OS](#install-os)
+- [install utilities](#install-utilities)
+- [configure utilities](#configure-utilities)
+- [APT](#apt)
+
+
 ### choose OS
 
 **ROCKY VS DEBIAN**
@@ -127,7 +136,9 @@ you can find the debian image here
 
 *the last guided method of partitioning uses the entire disk and sets up an encrypted LVM, but what is an LVM?*
 
+<a name="back">
 *jump to [LVM](#LVM) to find out* 🕵‍♂️️
+</a>
 
 *this will create partition with an encrypted higher partition in the disk containing the volume group*
 
@@ -232,6 +243,8 @@ the first step is gonna be to change current user to root
 
 the su command goes for substitute user and allows you to run commands with a substitute user, if no user is defined then it will default to root.
 
+it is fairly similar to sudo but differs in that sudo does not change the user but simply executes the command as the user.
+
 here the flag [-] means login
 
 now you can install sudo which allows you to execute a command as the superuser or another user.
@@ -245,18 +258,18 @@ the apt command is a shell front end for APT (Advanced Packaging Tool)
 
 so the command apt brings all thoses under a nice little package 📦️
 
-install ssh
+install ssh (for a little overview of what ssh is go to [SSH](#ssh))
 
 	apt install openssh-server
 
-install UFW
+install UFW (for a little overview of what UFW is go to [UFW](#ufw))
 
 	apt install ufw
 
 
 ### configure utilities 
 
-**configure SSH service/sudo/UFW**
+**configure sudo/SSH service/UFW**
 
 1. SUDO
 
@@ -367,11 +380,21 @@ the .deb package is then stored on the server, autobuilders manage the package c
 
 the end user gains access to the package through the mirror.
 
+[back](#install-utilities)
 
+### UFW WIP
 
-### MBR 💽️
+UFW Uncomplicated Firewall
 
-### LVM 🤷️
+### SSH WIP
+
+SSH stands for Secure Shell Protocol it is a both a network protocole and an application that uses a cryptographic network to operate securely over an unsecured network.
+
+[back](#install-utilities)
+
+### MBR WIP💽️
+
+### LVM WIP🤷️
 
 	 ______
 	|  LV  |
@@ -395,12 +418,14 @@ it is used for stream based devices.
 
 the device mapper is a framework provided by the Linux kernel for mapping physical block devices(through device driver) onto higher-level virtual block devices, it forms the foundation of the logical volume manager (LVM)
 
+Device mapper works by passing data from a virtual block device, which is provided by the device mapper itself, to another block device. Data can be also modified in transition, which is performed, for example, in the case of device mapper providing disk encryption or simulation of unreliable hardware behavior.
+
 here are some of the DM targets 
 
 -   **Linear**
     maps a continuous range of blocks onto another block device
 
--   **Striped**
+-   **Striped** 
     stripes the data across physical devices, with the number of stripes and the striping chunk size as parameters
 
 -   **Mirror**
@@ -421,7 +446,7 @@ here are some of the DM targets
 -   **Error**
     any I/O mapped to the disk fails
 
-    
+[back](#back)
 for more info on LVM, Device Mapper and device files check out the [ressources](../ressources.md).
 
 i would like to credit Baigalmaa Baatar for helping me and many other students on this project.
