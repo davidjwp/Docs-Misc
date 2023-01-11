@@ -126,18 +126,9 @@ for debian that image can be found here
 
 now you will partition the disk, separate user data and system data.
 
-the last method of partitioning uses the entire disk and sets up an encrypted LVM, but what is an LVM?
+the last guided method of partitioning uses the entire disk and sets up an encrypted LVM, but what is an LVM?
 
-LVM (Logical Volume Manager) is a software/partition scheme used to manage memory by way of memory virtualization for system administrators to allow greater flexibility of use, it can concatenate, stripe or combine partitions into larger virtual partitions.
-
-it partitions volumes into volume groups,containing logical volumes, those logical volumes are composed of physical volumes, physical volumes are a way to group physical extents set to specific size limits, with all this the physical volumes can be manipulated in any way within the logical volume which is a virtual partition, a level of abstraction over physical storage.
-
-the LVM uses special files, special files are also called device files or special nodes they are abstract files used as interfaces for the device driver that communicates to the device itself. 
-
-
-for more info on LVM check out the ressources
-
-see [test](#test)
+jump to [LVM](#LVM) to find out  
 
 ![partition_disk](../Misc/assets/Born2beroot/partition_disk.png)
 
@@ -259,8 +250,17 @@ first off enable ufw
     sudo ufw enable
 
 
+### LVM
+
+LVM (Logical Volume Manager) is a software/partition scheme used to manage memory by way of memory virtualization for system administrators to allow greater flexibility of use, it can concatenate, stripe or combine partitions into larger virtual partitions.
+
+it partitions volumes into volume groups,containing logical volumes, those logical volumes are composed of physical volumes, physical volumes are a way to group physical extents set to specific size limits, with all this the physical volumes can be manipulated in any way within the logical volume which is a virtual partition, a level of abstraction over physical storage.
+
+the LVM uses special files, special files are also called device files or special nodes they are abstract files used as interfaces for the device driver that communicates to the device itself.
+
+for more info on LVM, Device Mapper and device files check out the ressources
+
 i would like to credit Baigalmaa Baatar for helping me and many other students on this project.
 
 Thank you!
 
-test
