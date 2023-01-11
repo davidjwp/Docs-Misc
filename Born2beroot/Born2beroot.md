@@ -215,7 +215,7 @@ you can find the debian image here
 
 *finally done*
 
-<img src="../Misc/assets/Born2beroot/login.png" alt="done" width="200"/>
+<img src="../Misc/assets/Born2beroot/login.png" alt="done" width="400"/>
 
 ![done](../Misc/assets/Born2beroot/done.png)
 
