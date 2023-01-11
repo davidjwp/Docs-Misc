@@ -16,6 +16,8 @@ It is better for servers and faster to update but less portable and stable.
 
 **installing OS on VMbox**
 
+before even installing the OS you need to create a virtual machine, it is fairly straightforward.
+
 to begin with open VMbox, VMbox for Virtual Box Manager is a free software capable of virtualization for a great many different operating system, it is used by enterprises as well as home users.
 
 VMbox runs on x86 hardware, needs only 512MB of RAM for the MBR plus the alloted memory for the OS(though more is always better).
@@ -26,7 +28,8 @@ create a new virtual machine
 
 ![new_vm](../Misc/assets/Born2beroot/new_vm.png)
 
-for the present you should name the OS Born2beroot to stay consistent
+for the present you should name the OS Born2beroot to stay consistent and if installed on school
+grounds you should install in sgoinfre
 
 ![name_os](../Misc/assets/Born2beroot/name_os.png)
 
@@ -39,6 +42,28 @@ create a virtual hard disk
 ![hard_disk](../Misc/assets/Born2beroot/hard_disk.png)
 
 the hard disk file type is not important, but it is good to know what each file does differently
+
+-   **VDI** Virtual Disk Image it is the default VMbox hard disk file type and is widely used with other virutalization software thus very portable, it is the image of a virtual disk as opposed to a virtual disk, the image can be extended to add or remove space even while using it.
+
+they are smaller and more efficient than VHD but slower than VMDK.
+
+-   **VHD** Virtual Hard Disk acts just like a physical hard disk, they have flexible sizes and are good for pre-built systems.
+
+the VHD has been superseded by VHDX the newer version which can hold more data.
+
+-   **VMDk** Virtual Machine Disk allows for cloning of physical hard disk and backups of virtual machines off-site
+
+VMDK allows incremental backups of changes to data from the time of the last backups.
+
+for this machine you should use the default 
+
+![hd_type](../Misc/assets/Born2beroot/hd_type.png)
+
+Dinamically allocated
+
+![dynamic_alloc](../Misc/assets/Born2beroot/dynamic_alloc.png)
+
+
 
 
 ### install utilities
