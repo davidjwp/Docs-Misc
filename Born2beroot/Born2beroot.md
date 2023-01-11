@@ -94,34 +94,34 @@ you can find the debian image here
 
 <img src="../Misc/assets/Born2beroot/starting_vm.png" alt="starting_vm" width="450"/>
 
-<img src="../Misc/assets/Born2beroot/inst_lang.png" alt="inst_lang" width="600"/>
+<img src="../Misc/assets/Born2beroot/inst_lang.png" alt="inst_lang" width="630"/>
 
 
-<img src="../Misc/assets/Born2beroot/country.png" alt="country" width="600"/>
+<img src="../Misc/assets/Born2beroot/country.png" alt="country" width="630"/>
 
-<img src="../Misc/assets/Born2beroot/keymap.png" alt="keymap" width="600"/>
+<img src="../Misc/assets/Born2beroot/keymap.png" alt="keymap" width="630"/>
 
 *the hostname of your machine should be the school login with 42*
 
-<img src="../Misc/assets/Born2beroot/hostname.png" alt="hostname" width="600"/>
+<img src="../Misc/assets/Born2beroot/hostname.png" alt="hostname" width="630"/>
 
 *no need for a domain name*
 
-<img src="../Misc/assets/Born2beroot/domain_name.png" alt="domain_name" width="600"/>
+<img src="../Misc/assets/Born2beroot/domain_name.png" alt="domain_name" width="630"/>
 
 *set the root password but careful, it's a secret* 🤫️
 
-<img src="../Misc/assets/Born2beroot/root_pass.png" alt="root_pass" width="600"/>
+<img src="../Misc/assets/Born2beroot/root_pass.png" alt="root_pass" width="630"/>
 
 *btw use space to tick boxes*
 
-<img src="../Misc/assets/Born2beroot/user_account.png" alt="user_account" width="600"/>
+<img src="../Misc/assets/Born2beroot/user_account.png" alt="user_account" width="630"/>
 
-<img src="../Misc/assets/Born2beroot/username.png" alt="username" width="600"/>
+<img src="../Misc/assets/Born2beroot/username.png" alt="username" width="630"/>
 
-<img src="../Misc/assets/Born2beroot/user_pass.png" alt="user_pass" width="600"/>
+<img src="../Misc/assets/Born2beroot/user_pass.png" alt="user_pass" width="630"/>
 
-<img src="../Misc/assets/Born2beroot/clock.png" alt="clock" width="600"/>
+<img src="../Misc/assets/Born2beroot/clock.png" alt="clock" width="630"/>
 
 *now you will partition the disk, separate user data and system data.*
 
@@ -131,7 +131,7 @@ you can find the debian image here
 
 *this will create partition with an encrypted higher partition in the disk containing the volume group*
 
-![partition_disk](../Misc/assets/Born2beroot/partition_disk.png)
+<img src="../Misc/assets/Born2beroot/partition_disk.png" alt="partition_disk" width="630"/>
 
 *select the disk to partition*
 
@@ -157,11 +157,11 @@ you can find the debian image here
 
 -	**HARDDISK** self-explanatory
 
-![select_disk](../Misc/assets/Born2beroot/select_disk.png)
+<img src="../Misc/assets/Born2beroot/select_disk.png" alt="select_disk" width="630"/>
 
 *select the last partition scheme, each logical volume will be explained later*
 
-![select_partition](../Misc/assets/Born2beroot/select_partition.png)
+<img src="../Misc/assets/Born2beroot/select_partition.png" alt="select_partition" width="630"/>
 
 *prepare to wait*
 
@@ -169,15 +169,15 @@ you can find the debian image here
 
 *just kidding you can skip it*
 
-![write](../Misc/assets/Born2beroot/write.png)
+<img src="../Misc/assets/Born2beroot/write.png" alt="write" width="630"/>
 
 *there is a minimum of 8 characters for the encryption password*
 
-![enc_pass](../Misc/assets/Born2beroot/partition_disk.png)
+<img src="../Misc/assets/Born2beroot/enc_pass.png" alt="enc_pass" width="630"/>
 
 *set to max*
 
-![vg_size](../Misc/assets/Born2beroot/vg_size.png)
+<img src="../Misc/assets/Born2beroot/vg_size.png" alt="vg_size" width="630"/>
 
 *here you can see the lvm VG(Volume Group) named by the hostname-vg and every LV(Logical Volume) included*
 
@@ -185,32 +185,31 @@ you can find the debian image here
 
 -	**ext4/ext2/crypto** this is the type of file system, ext4 goes for extended file system fourth generation, so is ext2 and crypto means that it is encrypted
 
-![finish_write](../Misc/assets/Born2beroot/finish_write.png)
+<img src="../Misc/assets/Born2beroot/finish_write.png" alt="finish_write" width="630"/>
 
 *now's the waiting game*
 
-![accept_finish](../Misc/assets/Born2beroot/accept_finish.png)
+<img src="../Misc/assets/Born2beroot/accept_finish.png" alt="accept_finish" width="630"/>
 
-
-![scanning_media](../Misc/assets/Born2beroot/scanning_media.png)
+<img src="../Misc/assets/Born2beroot/scanning_media.png" alt="scanning_media" width="630"/>
 
 *the package manager needs to find the mirror on the debian network, for more info on how the debian package manager works check out [APT](#apt)*
 
-![config_apt](../Misc/assets/Born2beroot/config_apt.png)
+<img src="../Misc/assets/Born2beroot/config_apt.png" alt="config_apt" width="630"/>
 
-![mirror](../Misc/assets/Born2beroot/mirror.png)
+<img src="../Misc/assets/Born2beroot/mirror.png" alt="mirror" width="630"/>
 
-![proxy](../Misc/assets/Born2beroot/proxy.png)
+<img src="../Misc/assets/Born2beroot/proxy.png" alt="proxy" width="630"/>
 
-![pop_contest](../Misc/assets/Born2beroot/pop_contest.png)
+<img src="../Misc/assets/Born2beroot/pop_contest.png" alt="pop_contest" width="630"/>
 
-![soft_select](../Misc/assets/Born2beroot/soft_select.png)
+<img src="../Misc/assets/Born2beroot/soft_select.png" alt="soft_select" width="630"/>
 
 *the GRUB is the Grand Unified Bootloader the GNU bootloader, during the installation debian will replace MBR and point to it's own boot file*
 
-![grub](../Misc/assets/Born2beroot/grub.png)
+<img src="../Misc/assets/Born2beroot/grub.png" alt="grub" width="630"/>
 
-![choose_boot](../Misc/assets/Born2beroot/choose_boot.png)
+<img src="../Misc/assets/Born2beroot/choose_boot.png" alt="choose_boot" width="630"/>
 
 *finally done*
 
