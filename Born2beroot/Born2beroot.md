@@ -458,7 +458,7 @@ for more info on LVM, Device Mapper and device files check out the [ressources](
 
 i would like to credit Baigalmaa Baatar for helping me and many other students on this project.
 
-and i would also like to thank my parents whom i love very much *cries* and my brothers *wipes fake tear* this is the greatest day of my life *everyone is clapping* thank you so much *torrent of applause* 🏆️
+and i would also like to thank my parents whom i love very much ***cries*** and my brothers ***wipes fake tear*** this is the greatest day of my life ***everyone is clapping*** thank you so much ***torrent of applause*** 🏆️
 
 Thank you for reading my stupid shit!
 
