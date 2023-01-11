@@ -67,7 +67,7 @@ VMDK allows incremental backups of changes to data from the time of the last bac
 
 *leave default*
 
-![file_location](../Misc/assets/Born2beroot/file_location.png)
+<img src="../Misc/assets/Born2beroot/file_location.png" alt="file_location" width="760"/>
 
 now the VM is created, to install the OS you need to insert the installation disk into the disk drive 
 
@@ -75,19 +75,20 @@ in a virtual sense it means you have to give the IDE(Integrated Drive Electronic
 
 you can find the debian image here
 
-[![debian_iso](../Misc/assets/Born2beroot/debian-logo-horizontal.png)](https://cdimage.debian.org/debian-cd/current/amd64/iso-cd/)
+<img src="../Misc/assets/Born2beroot/debian_iso.png" alt="debian_iso" width="760"/>
 
 *to add the image to the IDE go to settings*
 
-![settings](../Misc/assets/Born2beroot/settings.png)
+
+<img src="../Misc/assets/Born2beroot/settings.png" alt="settings" width="760"/>
 
 *go to storage*
 
-![storage](../Misc/assets/Born2beroot/storage.png)
+<img src="../Misc/assets/Born2beroot/storage.png" alt="storage" width="760"/>
 
 *in the Controller:IDE section give the OS image to the Optical Drive by clicking the disk icon on the side and choosing the debian iso*
 
-![give_image](../Misc/assets/Born2beroot/give_image.png)
+<img src="../Misc/assets/Born2beroot/give_image.png" alt="give_image" width="760"/>
 
 *now that the image is loaded start the machine and install debian*
 
