@@ -146,7 +146,7 @@ you can find the debian image here
 
 -   **SCSI1**   refers to Small Computer System Interface 1(one for the version of SCSI) it is a standard for hardware interface
 
--   **(0,0,0)** 0^1^ controller , 0^2^ disk , 0^3^ partition
+-   **(0,0,0)** 0<sup>1</sup> controller , 0<sup>2</sup> disk , 0<sup>3</sup> partition
 
 -   **(sda)**   means the SCSI device 'a', a for which device, like so, sdb, sdc, sde
 
