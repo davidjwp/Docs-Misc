@@ -184,16 +184,23 @@ you can find the debian image here
 
 *below you can see the partition table(not MBR)*
 
-*here i explain some elements you might not have seen before*
-
--	**f** this goes for the file system type, so 'f' for an embedded file 'F' for primary file
-
 -	**ext4/ext2/crypto** this is the type of file system, ext4 goes for extended file system fourth generation, so is ext2 and crypto means that it is encrypted
 
 ![finish_write](../Misc/assets/Born2beroot/finish_write.png)
 
+*now's the waiting game*
+
 ![accept_finish](../Misc/assets/Born2beroot/accept_finish.png)
 
+
+![scanning_media](../Misc/assets/Born2beroot/scanning_media.png)
+
+*the package manager needs to find the mirror on the debian network, for more info on how the debian package manager works check out [APT](#apt)*
+![config_apt](../Misc/assets/Born2beroot/config_apt.png)
+
+![accept_finish](../Misc/assets/Born2beroot/accept_finish.png)
+
+![accept_finish](../Misc/assets/Born2beroot/accept_finish.png)
 ### install utilities
 
 **install SSH/sudo/UFW**
@@ -214,8 +221,7 @@ now you can install sudo which allows you to execute a command as the superuser 
     apt install sudo
 
 really there is no difference between doing apt-get and apt,
-the apt command is a shell front end for APT (Advanced Packaging Tool),
-APT contains apt-get/cache and other utilities.
+the apt command is a shell front end for APT (Advanced Packaging Tool)
 
 so the command apt brings all thoses under a nice little package 📦️
 
@@ -310,6 +316,30 @@ before you can connect to the ssh server you have to configurr ufw
 first off enable ufw
 
     sudo ufw enable
+
+### APT
+
+APT (Advanced Package Tool) is a free-software user interface that works with core libraries to handle the installation and removal of software on Debian, and Debian-based Linux distributions. APT simplifies the process of managing software on Unix-like computer systems by automating the retrieval, configuration and installation of software packages, either from precompiled files or by compiling source code.
+
+apt is the command to handle that software.
+
+aptitude is a front-end to APT, it displays a list of software packages and allows the user to interactively pick packages to install or remove. It has an especially powerful search system utilizing flexible search patterns. It was initially created for Debian, but has appeared in RPM-based distributions as well.
+
+here is how packages are delivered to end user in Debian
+			   ________________________   ________   ____________
+    ________  |  _________   ________  | | server | |autobuilders|
+   |upstream|_|_|packaging|_|updating|_|_|________|_| _________  |
+   |author  | | |_________| |________| | | |repo| | ||_________| |
+   |________| |   package mainteners   | | |____| | | _________  |
+			  |________________________| | |.deb| | ||_________| |
+			  							 | |____| | | _________  |
+										 |________| ||_________| |
+										  ___|__    |____________|
+										 |mirror|
+										 |______|
+										     |  <----using /etc/apt/sources   
+										  end user
+
 ### MBR 💽️
 
 ### LVM 🤷️
