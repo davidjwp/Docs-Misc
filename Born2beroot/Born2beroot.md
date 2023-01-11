@@ -28,9 +28,18 @@ create a new virtual machine
 
 for the present you should name the OS Born2beroot to stay consistent
 
+![name_os](../Misc/assets/Born2beroot/name_os.png)
+
 the memory size (RAM) can be left as default 
 
+![ram](../Misc/assets/Born2beroot/ram.png)
+
 create a virtual hard disk
+
+![hard_disk](../Misc/assets/Born2beroot/hard_disk.png)
+
+the hard disk file type is not important, but it is good to know what each file does differently
+
 
 ### install utilities
 
