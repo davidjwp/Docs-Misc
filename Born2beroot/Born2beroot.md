@@ -167,8 +167,6 @@ you can find the debian image here
 
 # ⏳️
 
-*just kidding you can skip it*
-
 <img src="../Misc/assets/Born2beroot/write.png" alt="write" width="630"/>
 
 *there is a minimum of 8 characters for the encryption password*
@@ -213,17 +211,15 @@ you can find the debian image here
 
 *finally done*
 
-<img src="../Misc/assets/Born2beroot/login.png" alt="done" width="650"/>
-
-![done](../Misc/assets/Born2beroot/done.png)
+<img src="../Misc/assets/Born2beroot/done.png" alt="done" width="650"/>
 
 *the last thing to do is to unlock the encrypted disk*
-# WIP
-![unlock](../Misc/assets/Born2beroot/unlock.png)
+
+<img src="../Misc/assets/Born2beroot/unlock.png" alt="unlock" width="600"/>
 
 *now login*
 
-![login](../Misc/assets/Born2beroot/login.png)
+<img src="../Misc/assets/Born2beroot/login.png" alt="done" width="650"/>
 
 
 ### install utilities
