@@ -1,6 +1,6 @@
 in order of tasks:
 
-#### choose OS
+### choose OS
 
 **ROCKY VS DEBIAN**
 
@@ -12,13 +12,27 @@ Rocky linux is a distribution system based on the Red hat distro one of the most
 
 It is better for servers and faster to update but less portable and stable.
 
-#### install OS
+### install OS
 
 **installing OS on VMbox**
 
+to begin with open VMbox, VMbox for Virtual Box Manager is a free software capable of virtualization for a great many different operating system, it is used by enterprises as well as home users.
 
+VMbox runs on x86 hardware, needs only 512MB of RAM for the MBR plus the alloted memory for the OS(though more is always better).
 
-#### install utilities
+for a brief explanation of virtualization, virtualization is the act of creating a virtual version of something at the same abstraction level, it can be done for computer hardware, storage devices and computer networks.
+
+create a new virtual machine 
+
+![new_vm](../Misc/assets/Born2beroot/new_vm.xcf)
+
+for the present you should name the OS Born2beroot to stay consistent
+
+the memory size (RAM) can be left as default 
+
+create a virtual hard disk
+
+### install utilities
 
 **install SSH/sudo/UFW**
 
@@ -52,7 +66,7 @@ install UFW
     apt install ufw
 
 
-#### configure utilities 
+### configure utilities 
 
 **configure SSH service/sudo/UFW**
 
