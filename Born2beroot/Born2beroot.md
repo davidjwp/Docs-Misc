@@ -41,7 +41,7 @@ create a virtual hard disk
 
 ![hard_disk](../Misc/assets/Born2beroot/hard_disk.png)
 
-the hard disk file type is not important, but it is good to know what each file does differently
+the hard disk file type is not important, but it is good to know what each type does differently
 
 -   **VDI** Virtual Disk Image it is the default VMbox hard disk file type and is widely used with other virutalization software thus very portable, it is the image of a virtual disk as opposed to a virtual disk, the image can be extended to add or remove space even while using it.
 
@@ -63,6 +63,15 @@ Dinamically allocated
 
 ![dynamic_alloc](../Misc/assets/Born2beroot/dynamic_alloc.png)
 
+leave default
+
+![file_location](../Misc/assets/Born2beroot/file_location.png)
+
+now the VM is created, to install the OS you need to insert the installation disk of the OS into the disk drive, in a virtual sense it means you have to give the virtual IDE(Integrated Drive Electronic) the image of the OS.
+
+for debian that image can be found here: 
+
+![debian_iso](../Misc/assets/Born2beroot/debian-logo-horizontal.png)(https://cdimage.debian.org/debian-cd/current/amd64/iso-cd/)
 
 
 
@@ -182,4 +191,3 @@ before you can connect to the ssh server you have to configurr ufw
 first off enable ufw
 
     sudo ufw enable
-
