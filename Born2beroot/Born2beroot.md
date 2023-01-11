@@ -4,11 +4,11 @@
 
 **ROCKY VS DEBIAN**
 
--   Debian is a more general purpose distribution, it comes out the box with more features and applications, it is focused primarely on stability and ease of use making it the basis for a lot of other distros like Ubuntu, Mint, Arch, Debian is maintained by a team of volunteers over the internet.
+-	Debian is a more general purpose distribution, it comes out the box with more features and applications, it is focused primarely on stability and ease of use making it the basis for a lot of other distros like Ubuntu, Mint, Arch, Debian is maintained by a team of volunteers over the internet.
 
 It is more stable and portable, but slower to update.
 
--   Rocky linux is a distribution system based on the Red hat distro one of the most used linux distributions, thus it is an excelent distro but Rocky is more targeted towards server use and comes in with very little functionnality for this reason, Rocky is worked on by The Rocky Enterprise Software Foundation. 
+-	Rocky linux is a distribution system based on the Red hat distro one of the most used linux distributions, thus it is an excelent distro but Rocky is more targeted towards server use and comes in with very little functionnality for this reason, Rocky is worked on by The Rocky Enterprise Software Foundation. 
 
 It is better for servers and faster to update but less portable and stable.
 
@@ -45,15 +45,15 @@ virtualization is the act of creating a virtual version of something at the same
 
 the hard disk file type is not important, but it is good to know what each type does differently
 
--   **VDI** Virtual Disk Image it is the default VMbox hard disk file type and is widely used with other virutalization software thus very portable, it is the image of a virtual disk as opposed to a virtual disk, the image can be extended to add or remove space even while using it.
+-	**VDI** Virtual Disk Image it is the default VMbox hard disk file type and is widely used with other virutalization software thus very portable, it is the image of a virtual disk as opposed to a virtual disk, the image can be extended to add or remove space even while using it.
 
 they are smaller and more efficient than VHD but slower than VMDK.
 
--   **VHD** Virtual Hard Disk acts just like a physical hard disk, they have flexible sizes and are good for pre-built systems.
+-	**VHD** Virtual Hard Disk acts just like a physical hard disk, they have flexible sizes and are good for pre-built systems.
 
 the VHD has been superseded by VHDX the newer version which can hold more data.
 
--   **VMDk** Virtual Machine Disk allows for cloning of physical hard disk and backups of virtual machines off-site
+-	**VMDk** Virtual Machine Disk allows for cloning of physical hard disk and backups of virtual machines off-site
 
 VMDK allows incremental backups of changes to data from the time of the last backups.
 
@@ -144,19 +144,19 @@ you can find the debian image here
 
     (current machine hardware) - (disk hardware)
 
--   **SCSI1**   refers to Small Computer System Interface 1(one for the version of SCSI) it is a standard for hardware interface
+-	**SCSI1**   refers to Small Computer System Interface 1(one for the version of SCSI) it is a standard for hardware interface
 
--   **(0,0,0)** 0<sup>1</sup> controller , 0<sup>2</sup> disk , 0<sup>3</sup> partition
+-	**(0,0,0)** 0<sup>1</sup> controller , 0<sup>2</sup> disk , 0<sup>3</sup> partition
 
--   **(sda)**   means the SCSI device 'a', a for which device, like so, sdb, sdc, sde
+-	**(sda)**   means the SCSI device 'a', a for which device, like so, sdb, sdc, sde, it means the first registered device
 
--   **12.9 GB** size
+-	**12.9 GB** size
 
--   **ATA**  an interface type standard
+-	**ATA**  an interface type standard
 
--   **VBOX** virtual box
+-	**VBOX** virtual box
 
--   **HARDDISK** self-explanatory
+-	**HARDDISK** self-explanatory
 
 ![select_disk](../Misc/assets/Born2beroot/select_disk.png)
 
@@ -164,14 +164,35 @@ you can find the debian image here
 
 ![select_partition](../Misc/assets/Born2beroot/select_partition.png)
 
+*prepare to wait*
 
-![partition_disk](../Misc/assets/Born2beroot/partition_disk.png)
+# ⏳️
 
-![partition_disk](../Misc/assets/Born2beroot/partition_disk.png)
+*just kidding you can skip it*
 
-![partition_disk](../Misc/assets/Born2beroot/partition_disk.png)
+![write](../Misc/assets/Born2beroot/write.png)
 
-![partition_disk](../Misc/assets/Born2beroot/partition_disk.png)
+*there is a minimum of 8 characters for the encryption password*
+
+![enc_pass](../Misc/assets/Born2beroot/partition_disk.png)
+
+*set to max*
+
+![vg_size](../Misc/assets/Born2beroot/vg_size.png)
+
+*here you can see the lvm VG(Volume Group) named by the hostname-vg and every LV(Logical Volume) included*
+
+*below you can see the partition table(not MBR)*
+
+*here i explain some elements you might not have seen before*
+
+-	**f** this goes for the file system type, so 'f' for an embedded file 'F' for primary file
+
+-	**ext4/ext2/crypto** this is the type of file system, ext4 goes for extended file system fourth generation, so is ext2 and crypto means that it is encrypted
+
+![finish_write](../Misc/assets/Born2beroot/finish_write.png)
+
+![accept_finish](../Misc/assets/Born2beroot/accept_finish.png)
 
 ### install utilities
 
@@ -289,9 +310,14 @@ before you can connect to the ssh server you have to configurr ufw
 first off enable ufw
 
     sudo ufw enable
-
+### MBR 💽️
 
 ### LVM 🤷️
+
+	______
+   |  LV  |
+   |______|
+	   |
 
 LVM (Logical Volume Manager) is a software/partition scheme used to manage memory by way of memory virtualization for system administrators to allow greater flexibility of use, it can concatenate, stripe or combine partitions into larger virtual partitions.
 
