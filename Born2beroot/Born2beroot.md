@@ -6,7 +6,8 @@
 - [install OS](#install-os)
 - [install utilities](#install-utilities)
 - [configure utilities](#configure-utilities)
-- [APT](#apt)
+- [info](#info)
+- [credits](#credits)
 
 
 ### choose OS
@@ -135,11 +136,11 @@ you can find the debian image here
 <a name="back">
 *now you will partition the disk, separate user data and system data.*
 </a>
+
 *the last guided method of partitioning uses the entire disk and sets up an encrypted LVM, but what is an LVM?*
 
 
 *jump to [LVM](#LVM) to find out* 🕵‍♂️️
-
 
 *this will create partition with an encrypted higher partition in the disk containing the volume group*
 
@@ -351,6 +352,8 @@ first off enable ufw
 
 	sudo ufw enable
 
+## INFO
+
 ### APT
 
 APT (Advanced Package Tool) is a free-software user interface that works with core libraries to handle the installation and removal of software on Debian, and Debian-based Linux distributions. APT simplifies the process of managing software on Unix-like computer systems by automating the retrieval, configuration and installation of software packages, either from precompiled files or by compiling source code.
@@ -449,9 +452,13 @@ here are some of the DM targets
 
 for more info on LVM, Device Mapper and device files check out the [ressources](../ressources.md).
 
-go [back](#back)
+[back](#back)
+
+## credits
 
 i would like to credit Baigalmaa Baatar for helping me and many other students on this project.
 
-Thank you!
+and i would also like to thank my parents whom i love very much *cries* and my brothers *wipes fake tear* this is the greatest day of my life *everyone is clapping* thank you so much *torrent of applause* 🏆️
+
+Thank you for reading my stupid shit!
 
