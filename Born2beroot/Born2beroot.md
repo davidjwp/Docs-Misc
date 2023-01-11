@@ -196,11 +196,36 @@ you can find the debian image here
 ![scanning_media](../Misc/assets/Born2beroot/scanning_media.png)
 
 *the package manager needs to find the mirror on the debian network, for more info on how the debian package manager works check out [APT](#apt)*
+
 ![config_apt](../Misc/assets/Born2beroot/config_apt.png)
 
-![accept_finish](../Misc/assets/Born2beroot/accept_finish.png)
+![mirror](../Misc/assets/Born2beroot/mirror.png)
 
-![accept_finish](../Misc/assets/Born2beroot/accept_finish.png)
+![proxy](../Misc/assets/Born2beroot/proxy.png)
+
+![pop_contest](../Misc/assets/Born2beroot/pop_contest.png)
+
+![soft_select](../Misc/assets/Born2beroot/soft_select.png)
+
+*the GRUB is the Grand Unified Bootloader the GNU bootloader during the installation debian will replace MBR and point to it's own boot file*
+
+![grub](../Misc/assets/Born2beroot/grub.png)
+
+![choose_boot](../Misc/assets/Born2beroot/choose_boot.png)
+
+*finally done*
+
+![done](../Misc/assets/Born2beroot/done.png)
+
+*the last thing to do is to unlock the encrypted disk*
+# WIP
+![unlock](../Misc/assets/Born2beroot/unlock.png)
+
+*now login*
+
+![login](../Misc/assets/Born2beroot/login.png)
+
+
 ### install utilities
 
 **install SSH/sudo/UFW**
@@ -340,6 +365,14 @@ here is how packages are delivered to end user in Debian
 					      |______|
 					          |  <----using /etc/apt/sources   
 					       end user
+
+the upstream author sends the package to the package mainteners who package it, update it and compile it then send it to the server repo.
+
+the .deb package is then stored on the server, autobuilders manage the package compilation for different architecture, it is network of several machines that use a specific software package called buildd to pick up packages from the Debian archive and rebuild them for the target architecture.
+
+the end user gains access to the package through the mirror.
+
+
 
 ### MBR 💽️
 
