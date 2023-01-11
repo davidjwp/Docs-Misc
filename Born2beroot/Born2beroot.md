@@ -4,11 +4,11 @@ in order of tasks:
 
 **ROCKY VS DEBIAN**
 
-Debian is a more general purpose distribution, it comes out the box with more features and applications, it is focused primarely on stability and ease of use making it the basis for a lot of other distros like Ubuntu, Mint, Arch, Debian is maintained by a team of volunteers over the internet.
+-   Debian is a more general purpose distribution, it comes out the box with more features and applications, it is focused primarely on stability and ease of use making it the basis for a lot of other distros like Ubuntu, Mint, Arch, Debian is maintained by a team of volunteers over the internet.
 
 It is more stable and portable, but slower to update.
 
-Rocky linux is a distribution system based on the Red hat distro one of the most used linux distributions, thus it is an excelent distro but Rocky is more targeted towards server use and comes in with very little functionnality for this reason, Rocky is worked on by The Rocky Enterprise Software Foundation. 
+-   Rocky linux is a distribution system based on the Red hat distro one of the most used linux distributions, thus it is an excelent distro but Rocky is more targeted towards server use and comes in with very little functionnality for this reason, Rocky is worked on by The Rocky Enterprise Software Foundation. 
 
 It is better for servers and faster to update but less portable and stable.
 
@@ -18,11 +18,13 @@ It is better for servers and faster to update but less portable and stable.
 
 before even installing the OS you need to create a virtual machine, it is fairly straightforward.
 
-to begin with open VMbox, VMbox for Virtual Box Manager is a free software capable of virtualization for a great many different operating system, it is used by enterprises as well as home users.
+to begin with open VMbox, VMbox for Virtual Box Manager is a free software capable of virtualization for a great many different operating systems, it is used by enterprises as well as home users.
 
-VMbox runs on x86 hardware, needs only 512MB of RAM for the MBR plus the alloted memory for the OS(though more is always better).
+VMbox runs on x86 hardware and only needs 512MB of RAM for the MBR plus the alloted memory for the OS(though more is always better).
 
-for a brief explanation of virtualization, virtualization is the act of creating a virtual version of something at the same abstraction level, it can be done for computer hardware, storage devices and computer networks.
+for a brief explanation of virtualization:
+
+virtualization is the act of creating a virtual version of something at the same abstraction level, it can be done for computer hardware, storage devices and computer networks.
 
 *create a new virtual machine* 
 
@@ -67,7 +69,9 @@ VMDK allows incremental backups of changes to data from the time of the last bac
 
 ![file_location](../Misc/assets/Born2beroot/file_location.png)
 
-now the VM is created, to install the OS you need to insert the installation disk of the OS into the disk drive, in a virtual sense it means you have to give the virtual IDE(Integrated Drive Electronic) the image of the OS.
+now the VM is created, to install the OS you need to insert the installation disk into the disk drive 
+
+in a virtual sense it means you have to give the IDE(Integrated Drive Electronic) the image of the OS.
 
 for debian that image can be found here
 
@@ -81,7 +85,7 @@ for debian that image can be found here
 
 ![storage](../Misc/assets/Born2beroot/storage.png)
 
-*in the Controller:IDE section give the OS image to the Optical Drive by clicking the disk on the side and choosing the debian iso*
+*in the Controller:IDE section give the OS image to the Optical Drive by clicking the disk icon on the side and choosing the debian iso*
 
 ![give_image](../Misc/assets/Born2beroot/give_image.png)
 
@@ -120,7 +124,22 @@ for debian that image can be found here
 
 ![clock](../Misc/assets/Born2beroot/clock.png)
 
-![domain_name](../Misc/assets/Born2beroot/domain_name.png)
+now you will partition the disk, separate user data and system data.
+
+the last method of partitioning uses the entire disk and sets up an encrypted LVM, but what is an LVM?
+
+LVM (Logical Volume Manager) is a software/partition scheme used to manage memory by way of memory virtualization for system administrators to allow greater flexibility of use, it can concatenate, stripe or combine partitions into larger virtual partitions.
+
+it partitions volumes into volume groups,containing logical volumes, those logical volumes are composed of physical volumes, physical volumes are a way to group physical extents set to specific size limits, with all this the physical volumes can be manipulated in any way within the logical volume which is a virtual partition, a level of abstraction over physical storage.
+
+the LVM uses special files, special files are also called device files or special nodes they are abstract files used as interfaces for the device driver that communicates to the device itself. 
+
+
+for more info on LVM check out the ressources
+
+see [test](#test)
+
+![partition_disk](../Misc/assets/Born2beroot/partition_disk.png)
 
 ### install utilities
 
@@ -243,3 +262,5 @@ first off enable ufw
 i would like to credit Baigalmaa Baatar for helping me and many other students on this project.
 
 Thank you!
+
+# test
