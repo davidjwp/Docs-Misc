@@ -75,6 +75,7 @@ in a virtual sense it means you have to give the IDE(Integrated Drive Electronic
 
 you can find the debian image here
 
+[![debian_iso](../Misc/assets/Born2beroot/debian_iso.png)](https://cdimage.debian.org/debian-cd/current/amd64/iso-cd/)
 <img src="../Misc/assets/Born2beroot/debian_iso.png" alt="debian_iso" width="760"/>
 
 *to add the image to the IDE go to settings*
