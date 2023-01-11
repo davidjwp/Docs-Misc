@@ -130,6 +130,47 @@ you can find the debian image here
 
 *jump to [LVM](#LVM) to find out* 🕵‍♂️️
 
+*this will create partition with an encrypted higher partition in the disk containing the volume group*
+
+![partition_disk](../Misc/assets/Born2beroot/partition_disk.png)
+
+*select the disk to partition*
+
+*the disk in question is this*
+
+    SCSI1 (0,0,0) (sda) - 12.9 GB ATA VBOX HARDDISK
+
+*this is how it is structured*
+
+    (current machine hardware) - (disk hardware)
+
+-   **SCSI1**   refers to Small Computer System Interface 1(one for the version of SCSI) it is a standard for hardware interface
+
+-   **(0,0,0)** 0^1^ controller , 0^2^ disk , 0^3^ partition
+
+-   **(sda)**   means the SCSI device 'a', a for which device, like so, sdb, sdc, sde
+
+-   **12.9 GB** size
+
+-   **ATA**  an interface type standard
+
+-   **VBOX** virtual box
+
+-   **HARDDISK** self-explanatory
+
+![select_disk](../Misc/assets/Born2beroot/select_disk.png)
+
+*select the last partition scheme, each logical volume will be explained later*
+
+![select_partition](../Misc/assets/Born2beroot/select_partition.png)
+
+
+![partition_disk](../Misc/assets/Born2beroot/partition_disk.png)
+
+![partition_disk](../Misc/assets/Born2beroot/partition_disk.png)
+
+![partition_disk](../Misc/assets/Born2beroot/partition_disk.png)
+
 ![partition_disk](../Misc/assets/Born2beroot/partition_disk.png)
 
 ### install utilities
@@ -250,7 +291,7 @@ first off enable ufw
     sudo ufw enable
 
 
-### LVM
+### LVM 🤷️
 
 LVM (Logical Volume Manager) is a software/partition scheme used to manage memory by way of memory virtualization for system administrators to allow greater flexibility of use, it can concatenate, stripe or combine partitions into larger virtual partitions.
 
