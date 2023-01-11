@@ -69,9 +69,9 @@ leave default
 
 now the VM is created, to install the OS you need to insert the installation disk of the OS into the disk drive, in a virtual sense it means you have to give the virtual IDE(Integrated Drive Electronic) the image of the OS.
 
-for debian that image can be found here: 
+for debian that image can be found here
 
-![debian_iso](../Misc/assets/Born2beroot/debian-logo-horizontal.png)(https://cdimage.debian.org/debian-cd/current/amd64/iso-cd/)
+[![debian_iso](../Misc/assets/Born2beroot/debian-logo-horizontal.png)](https://cdimage.debian.org/debian-cd/current/amd64/iso-cd/)
 
 
 
