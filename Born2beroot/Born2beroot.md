@@ -1,4 +1,4 @@
-in order of tasks:
+**the explanations in this file for some of the concepts remain mostly simplistic to keep it brief, additional information should be added to attain a greater understanding**
 
 ### choose OS
 
@@ -73,7 +73,7 @@ now the VM is created, to install the OS you need to insert the installation dis
 
 in a virtual sense it means you have to give the IDE(Integrated Drive Electronic) the image of the OS.
 
-for debian that image can be found here
+you can find the debian image here
 
 [![debian_iso](../Misc/assets/Born2beroot/debian-logo-horizontal.png)](https://cdimage.debian.org/debian-cd/current/amd64/iso-cd/)
 
@@ -124,11 +124,11 @@ for debian that image can be found here
 
 ![clock](../Misc/assets/Born2beroot/clock.png)
 
-now you will partition the disk, separate user data and system data.
+*now you will partition the disk, separate user data and system data.*
 
-the last guided method of partitioning uses the entire disk and sets up an encrypted LVM, but what is an LVM?
+*the last guided method of partitioning uses the entire disk and sets up an encrypted LVM, but what is an LVM?*
 
-jump to [LVM](#LVM) to find out  
+*jump to [LVM](#LVM) to find out* 🕵‍♂️️
 
 ![partition_disk](../Misc/assets/Born2beroot/partition_disk.png)
 
@@ -256,9 +256,47 @@ LVM (Logical Volume Manager) is a software/partition scheme used to manage memor
 
 it partitions volumes into volume groups,containing logical volumes, those logical volumes are composed of physical volumes, physical volumes are a way to group physical extents set to specific size limits, with all this the physical volumes can be manipulated in any way within the logical volume which is a virtual partition, a level of abstraction over physical storage.
 
-the LVM uses special files, special files are also called device files or special nodes they are abstract files used as interfaces for the device driver that communicates to the device itself.
+the LVM uses device files, device files are also called special files or special nodes they are abstract files not real files used as interfaces for the device driver that communicates to the device itself.
 
-for more info on LVM, Device Mapper and device files check out the ressources
+there is two types of device files character device and block device
+
+-   **character device** - character device provides unbuffered direct accces to hardware device, response time and processing speeds are much better due to DMA(Direct Memory Access) which is a designated chip on the motherboard designed to allow direct access to processes without having to go through the CPU, this way the CPU can handle other requests while the process is accessing memory, if DMA is limited though then so is the advantage of character device
+
+it is used for stream based devices.
+
+-   **block device** - block device provides buffered access to hardware device by using one block at a time though the blocks can vary in sizes, this read and write of one block is what causes a buffering effect, in general block devices represent hardware such as disk drives, but that is platform-dependent as FreeBSD doesn't have any block devices at all.
+
+
+the device mapper is a framework provided by the Linux kernel for mapping physical block devices(through device driver) onto higher-level virtual block devices, it forms the foundation of the logical volume manager (LVM)
+
+here are some of the DM targets 
+
+-   **Linear**
+    maps a continuous range of blocks onto another block device
+
+-   **Striped**
+    stripes the data across physical devices, with the number of stripes and the striping chunk size as parameters
+
+-   **Mirror**
+    maps a mirrored logical device, while providing data redundancy
+
+-   **Snapshot**
+    used for creation of LVM snapshots, as part of the underlying copy-on-write scheme
+
+-   **Crypt**
+    provides data encryption and decryption
+
+-   **Multipath**
+    in order to provide higher reliablity, in case of failure of path to disk, data on the disk can be accessed through alternative paths
+
+-   **Zero**
+    returns all the data as zero for all operations on the disk
+
+-   **Error**
+    any I/O mapped to the disk fails
+
+    
+for more info on LVM, Device Mapper and device files check out the [ressources](../ressources.md).
 
 i would like to credit Baigalmaa Baatar for helping me and many other students on this project.
 
