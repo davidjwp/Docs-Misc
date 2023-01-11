@@ -92,38 +92,36 @@ you can find the debian image here
 
 *now that the image is loaded start the machine and install debian*
 
-![starting_vm](../Misc/assets/Born2beroot/starting_vm.png)
-
 <img src="../Misc/assets/Born2beroot/starting_vm.png" alt="starting_vm" width="450"/>
 
-<img src="../Misc/assets/Born2beroot/inst_lang.png" alt="inst_lang" width="500"/>
+<img src="../Misc/assets/Born2beroot/inst_lang.png" alt="inst_lang" width="600"/>
 
 
-<img src="../Misc/assets/Born2beroot/country.png" alt="country" width="500"/>
+<img src="../Misc/assets/Born2beroot/country.png" alt="country" width="600"/>
 
-<img src="../Misc/assets/Born2beroot/keymap.png" alt="keymap" width="500"/>
+<img src="../Misc/assets/Born2beroot/keymap.png" alt="keymap" width="600"/>
 
 *the hostname of your machine should be the school login with 42*
 
-<img src="../Misc/assets/Born2beroot/hostname.png" alt="hostname" width="500"/>
+<img src="../Misc/assets/Born2beroot/hostname.png" alt="hostname" width="600"/>
 
 *no need for a domain name*
 
-<img src="../Misc/assets/Born2beroot/domain_name.png" alt="domain_name" width="500"/>
+<img src="../Misc/assets/Born2beroot/domain_name.png" alt="domain_name" width="600"/>
 
 *set the root password but careful, it's a secret* 🤫️
 
-<img src="../Misc/assets/Born2beroot/root_pass.png" alt="root_pass" width="500"/>
+<img src="../Misc/assets/Born2beroot/root_pass.png" alt="root_pass" width="600"/>
 
 *btw use space to tick boxes*
 
-<img src="../Misc/assets/Born2beroot/user_account.png" alt="user_account" width="500"/>
+<img src="../Misc/assets/Born2beroot/user_account.png" alt="user_account" width="600"/>
 
-<img src="../Misc/assets/Born2beroot/username.png" alt="username" width="500"/>
+<img src="../Misc/assets/Born2beroot/username.png" alt="username" width="600"/>
 
-<img src="../Misc/assets/Born2beroot/user_pass.png" alt="user_pass" width="500"/>
+<img src="../Misc/assets/Born2beroot/user_pass.png" alt="user_pass" width="600"/>
 
-<img src="../Misc/assets/Born2beroot/clock.png" alt="clock" width="500"/>
+<img src="../Misc/assets/Born2beroot/clock.png" alt="clock" width="600"/>
 
 *now you will partition the disk, separate user data and system data.*
 
