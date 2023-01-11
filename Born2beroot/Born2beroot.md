@@ -24,7 +24,7 @@ for a brief explanation of virtualization, virtualization is the act of creating
 
 create a new virtual machine 
 
-![new_vm](../Misc/assets/Born2beroot/new_vm.xcf)
+![new_vm](../Misc/assets/Born2beroot/new_vm.png)
 
 for the present you should name the OS Born2beroot to stay consistent
 
