@@ -28,6 +28,8 @@ virtualization is the act of creating a virtual version of something at the same
 
 *create a new virtual machine* 
 
+<img src="../Misc/assets/Born2beroot/new_vm.png" alt="new_vm" width="800"/>
+
 ![new_vm](../Misc/assets/Born2beroot/new_vm.png)
 
 *for the present you should name the OS Born2beroot to stay consistent and if installed on school*
