@@ -326,19 +326,20 @@ apt is the command to handle that software.
 aptitude is a front-end to APT, it displays a list of software packages and allows the user to interactively pick packages to install or remove. It has an especially powerful search system utilizing flexible search patterns. It was initially created for Debian, but has appeared in RPM-based distributions as well.
 
 here is how packages are delivered to end user in Debian
-			   ________________________   ________   ____________
-    ________  |  _________   ________  | | server | |autobuilders|
-   |upstream|_|_|packaging|_|updating|_|_|________|_| _________  |
-   |author  | | |_________| |________| | | |repo| | ||_________| |
-   |________| |   package mainteners   | | |____| | | _________  |
-			  |________________________| | |.deb| | ||_________| |
-			  							 | |____| | | _________  |
-										 |________| ||_________| |
-										  ___|__    |____________|
-										 |mirror|
-										 |______|
-										     |  <----using /etc/apt/sources   
-										  end user
+
+	            ________________________   ________   ____________
+     ________  |  _________   ________  | | server | |autobuilders|
+    |upstream|_|_|packaging|_|updating|_|_|________|_| _________  |
+    |author  | | |_________| |________| | | |repo| | ||_________| |
+    |________| |   package mainteners   | | |____| | | _________  |
+               |________________________| | |.deb| | ||_________| |
+		                                  | |____| | | _________  |
+										  |________| ||_________| |
+										   ___|__    |____________|
+										  |mirror|
+										  |______|
+										      |  <----using /etc/apt/sources   
+										   end user
 
 ### MBR 💽️
 
