@@ -28,22 +28,20 @@ virtualization is the act of creating a virtual version of something at the same
 
 *create a new virtual machine* 
 
-<img src="../Misc/assets/Born2beroot/new_vm.png" alt="new_vm" width="800"/>
-
-![new_vm](../Misc/assets/Born2beroot/new_vm.png)
+<img src="../Misc/assets/Born2beroot/new_vm.png" alt="new_vm" width="760"/>
 
 *for the present you should name the OS Born2beroot to stay consistent and if installed on school*
 *grounds you should install in sgoinfre*
 
-![name_os](../Misc/assets/Born2beroot/name_os.png)
+<img src="../Misc/assets/Born2beroot/name_os.png" alt="name_os" width="760"/>
 
 *the memory size (RAM) can be left as default* 
 
-![ram](../Misc/assets/Born2beroot/ram.png)
-
+<img src="../Misc/assets/Born2beroot/ram.png" alt="ram" width="760"/>
+								       
 *create a virtual hard disk*
 
-![hard_disk](../Misc/assets/Born2beroot/hard_disk.png)
+<img src="../Misc/assets/Born2beroot/hard_disk.png" alt="hard_disk" width="760"/>
 
 the hard disk file type is not important, but it is good to know what each type does differently
 
@@ -61,11 +59,11 @@ VMDK allows incremental backups of changes to data from the time of the last bac
 
 *for this machine you should use the default* 
 
-![hd_type](../Misc/assets/Born2beroot/hd_type.png)
+<img src="../Misc/assets/Born2beroot/hd_type.png" alt="hd_type" width="760"/>
 
 *Dinamically allocated*
 
-![dynamic_alloc](../Misc/assets/Born2beroot/dynamic_alloc.png)
+<img src="../Misc/assets/Born2beroot/dynamic_alloc.png" alt="dynamic_alloc" width="760"/>
 
 *leave default*
 
