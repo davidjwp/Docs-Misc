@@ -90,6 +90,37 @@ for debian that image can be found here
 ![starting_vm](../Misc/assets/Born2beroot/starting_vm.png)
 
 
+![inst_lang](../Misc/assets/Born2beroot/inst_lang.png)
+
+
+![country](../Misc/assets/Born2beroot/country.png)
+
+
+![keymap](../Misc/assets/Born2beroot/keymap.png)
+
+*the hostname of your machine should be the school login with 42*
+
+![hostname](../Misc/assets/Born2beroot/hostname.png)
+
+*no need for a domain name*
+
+![domain_name](../Misc/assets/Born2beroot/domain_name.png)
+
+*set the root password but careful, it's a secret* 🤫️
+
+![root_pass](../Misc/assets/Born2beroot/root_pass.png)
+
+*btw use space to tick boxes*
+
+![user_account](../Misc/assets/Born2beroot/user_account.png)
+
+![username](../Misc/assets/Born2beroot/username.png)
+
+![user_pass](../Misc/assets/Born2beroot/user_pass.png)
+
+![clock](../Misc/assets/Born2beroot/clock.png)
+
+![domain_name](../Misc/assets/Born2beroot/domain_name.png)
 
 ### install utilities
 
