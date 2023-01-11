@@ -132,13 +132,14 @@ you can find the debian image here
 
 <img src="../Misc/assets/Born2beroot/clock.png" alt="clock" width="630"/>
 
+<a name="back">
 *now you will partition the disk, separate user data and system data.*
-
+</a>
 *the last guided method of partitioning uses the entire disk and sets up an encrypted LVM, but what is an LVM?*
 
-<a name="back">
+
 *jump to [LVM](#LVM) to find out* 🕵‍♂️️
-</a>
+
 
 *this will create partition with an encrypted higher partition in the disk containing the volume group*
 
@@ -446,8 +447,9 @@ here are some of the DM targets
 -   **Error**
     any I/O mapped to the disk fails
 
-[back](#back)
 for more info on LVM, Device Mapper and device files check out the [ressources](../ressources.md).
+
+go [back](#back)
 
 i would like to credit Baigalmaa Baatar for helping me and many other students on this project.
 
