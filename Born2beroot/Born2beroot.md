@@ -327,19 +327,19 @@ aptitude is a front-end to APT, it displays a list of software packages and allo
 
 here is how packages are delivered to end user in Debian
 
-	            ________________________   ________   ____________
+	        ________________________   ________   ____________
      ________  |  _________   ________  | | server | |autobuilders|
     |upstream|_|_|packaging|_|updating|_|_|________|_| _________  |
     |author  | | |_________| |________| | | |repo| | ||_________| |
     |________| |   package mainteners   | | |____| | | _________  |
                |________________________| | |.deb| | ||_________| |
-		                                  | |____| | | _________  |
-										  |________| ||_________| |
-										   ___|__    |____________|
-										  |mirror|
-										  |______|
-										      |  <----using /etc/apt/sources   
-										   end user
+		                          | |____| | | _________  |
+					  |________| ||_________| |
+					   ___|__    |____________|
+					  |mirror|
+					  |______|
+					      |  <----using /etc/apt/sources   
+					   end user
 
 ### MBR 💽️
 
