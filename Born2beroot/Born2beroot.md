@@ -24,20 +24,20 @@ VMbox runs on x86 hardware, needs only 512MB of RAM for the MBR plus the alloted
 
 for a brief explanation of virtualization, virtualization is the act of creating a virtual version of something at the same abstraction level, it can be done for computer hardware, storage devices and computer networks.
 
-create a new virtual machine 
+*create a new virtual machine* 
 
 ![new_vm](../Misc/assets/Born2beroot/new_vm.png)
 
-for the present you should name the OS Born2beroot to stay consistent and if installed on school
-grounds you should install in sgoinfre
+*for the present you should name the OS Born2beroot to stay consistent and if installed on school*
+*grounds you should install in sgoinfre*
 
 ![name_os](../Misc/assets/Born2beroot/name_os.png)
 
-the memory size (RAM) can be left as default 
+*the memory size (RAM) can be left as default* 
 
 ![ram](../Misc/assets/Born2beroot/ram.png)
 
-create a virtual hard disk
+*create a virtual hard disk*
 
 ![hard_disk](../Misc/assets/Born2beroot/hard_disk.png)
 
@@ -55,15 +55,15 @@ the VHD has been superseded by VHDX the newer version which can hold more data.
 
 VMDK allows incremental backups of changes to data from the time of the last backups.
 
-for this machine you should use the default 
+*for this machine you should use the default* 
 
 ![hd_type](../Misc/assets/Born2beroot/hd_type.png)
 
-Dinamically allocated
+*Dinamically allocated*
 
 ![dynamic_alloc](../Misc/assets/Born2beroot/dynamic_alloc.png)
 
-leave default
+*leave default*
 
 ![file_location](../Misc/assets/Born2beroot/file_location.png)
 
@@ -72,6 +72,22 @@ now the VM is created, to install the OS you need to insert the installation dis
 for debian that image can be found here
 
 [![debian_iso](../Misc/assets/Born2beroot/debian-logo-horizontal.png)](https://cdimage.debian.org/debian-cd/current/amd64/iso-cd/)
+
+*to add the image to the IDE go to settings*
+
+![settings](../Misc/assets/Born2beroot/settings.png)
+
+*go to storage*
+
+![storage](../Misc/assets/Born2beroot/storage.png)
+
+*in the Controller:IDE section give the OS image to the Optical Drive by clicking the disk on the side and choosing the debian iso*
+
+![give_image](../Misc/assets/Born2beroot/give_image.png)
+
+*now that the image is loaded start the machine and install debian*
+
+![starting_vm](../Misc/assets/Born2beroot/starting_vm.png)
 
 
 
@@ -191,3 +207,8 @@ before you can connect to the ssh server you have to configurr ufw
 first off enable ufw
 
     sudo ufw enable
+
+
+i would like to credit Baigalmaa Baatar for helping me and many other students on this project.
+
+Thank you!
