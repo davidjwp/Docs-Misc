@@ -10,7 +10,7 @@
 - [credits](#credits)
 
 
-### choose OS
+## choose OS
 
 **ROCKY VS DEBIAN**
 
@@ -22,7 +22,7 @@ It is more stable and portable, but slower to update.
 
 It is better for servers and faster to update but less portable and stable.
 
-### install OS
+## install OS
 
 **installing OS on VMbox**
 
@@ -32,9 +32,14 @@ to begin with open VMbox, VMbox for Virtual Box Manager is a free software capab
 
 VMbox runs on x86 hardware and only needs 512MB of RAM for the MBR plus the alloted memory for the OS(though more is always better).
 
+<a name="mbr_back">
+*to learn more about MBR go to [MBR](#mbr-💽️)*
+</a>
+
 for a brief explanation of virtualization:
 
 virtualization is the act of creating a virtual version of something at the same abstraction level, it can be done for computer hardware, storage devices and computer networks.
+
 
 *create a new virtual machine* 
 
@@ -235,7 +240,7 @@ you can find the debian image here
 <img src="../Misc/assets/Born2beroot/login.png" alt="done" width="650"/>
 
 
-### install utilities
+## install utilities
 
 **install SSH/sudo/UFW**
 
@@ -260,16 +265,18 @@ the apt command is a shell front end for APT (Advanced Packaging Tool)
 
 so the command apt brings all thoses under a nice little package 📦️
 
-install ssh (for a little overview of what ssh is go to [SSH](#ssh))
+install ssh 
 
 	apt install openssh-server
+
+SSH stands for Secure Shell Protocol it is a both a network protocole and an application that uses a cryptographic network to operate securely over an unsecured network.
 
 install UFW (for a little overview of what UFW is go to [UFW](#ufw))
 
 	apt install ufw
 
 
-### configure utilities 
+## configure utilities 
 
 **configure sudo/SSH service/UFW**
 
@@ -390,15 +397,23 @@ the end user gains access to the package through the mirror.
 
 UFW Uncomplicated Firewall
 
-### SSH WIP
+[up](#contents)
 
-SSH stands for Secure Shell Protocol it is a both a network protocole and an application that uses a cryptographic network to operate securely over an unsecured network.
+### MBR 💽️
 
-[back](#install-utilities)
+MBR for Master Boot Record is located on the first disk sector of mass storage devices like fixed disks or removable drives, it contains a partition table containing information on how the disc's sectors are divided into partitions, the MBR also contains executable code to function as a loader for the installed operating system—usually by passing control over to the loader's second stage, or in conjunction with each partition's volume boot record (VBR). This MBR code is usually referred to as a boot loader.
 
-### MBR WIP💽️
+it consists of 512 or more bytes located in the first sector of the drive.
 
-### LVM WIP🤷️
+the MBR has now been superseded by GPT the GUID partition table (Globally Unique Identifiers) due to only being limited to 32 bits of logical block addressing, it could only go up to 2tb.
+
+GPT uses 64 bytes for logical block addresses, allowing a maximum disk size of 264 sectors. For disks with 512‑byte sectors, the maximum size is 8 ZiB (264 × 512‑bytes) or 9.44 ZB (9.44 × 10²¹ bytes). For disks with 4,096‑byte sectors the maximum size is 64 ZiB (264 × 4,096‑bytes) or 75.6 ZB (75.6 × 10²¹ bytes).
+
+[back](#mbr_back)
+
+[up](#contents)
+
+### LVM 🤷️
 
 		VG1		5MB
 		 ____________________________________________________
@@ -470,6 +485,8 @@ here are some of the DM targets
 for more info on LVM, Device Mapper and device files check out the [ressources](../ressources.md).
 
 [back](#back)
+
+[up](#contents)
 
 ## credits
 
