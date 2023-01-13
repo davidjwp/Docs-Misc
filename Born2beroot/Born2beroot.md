@@ -33,7 +33,7 @@ to begin with open VMbox, VMbox for Virtual Box Manager is a free software capab
 VMbox runs on x86 hardware and only needs 512MB of RAM for the MBR plus the alloted memory for the OS(though more is always better).
 
 
-*to learn more about MBR go to*[MBR](#mbr-💽️)
+*to learn more about MBR go to* [MBR](#info)
 
 
 for a brief explanation of virtualization:
@@ -354,12 +354,29 @@ then restart ssh again
 
 UFW or Uncomplicated Firewall is a program for managing a netfilter firewall
 
+to learn more about it go to [UFW](#ufw)
+
 before you can connect to the ssh server you have to configurr ufw
 first off enable ufw
 
 	sudo ufw enable
 
 ## INFO
+
+### MBR 💽️
+
+MBR for Master Boot Record is located on the first disk sector of mass storage devices like fixed disks or removable drives, it contains a partition table containing information on how the disc's sectors are divided into partitions, the MBR also contains executable code to function as a loader for the installed operating system—usually by passing control over to the loader's second stage, or in conjunction with each partition's volume boot record (VBR). This MBR code is usually referred to as a boot loader.
+
+it consists of 512 or more bytes located in the first sector of the drive.
+
+the MBR has now been superseded by GPT the GUID partition table (Globally Unique Identifiers) due to only being limited to 32 bits of logical block addressing, it could only go up to 2tb.
+
+GPT uses 64 bytes for logical block addresses, allowing a maximum disk size of 264 sectors. For disks with 512‑byte sectors, the maximum size is 8 ZiB (264 × 512‑bytes) or 9.44 ZB (9.44 × 10²¹ bytes). For disks with 4,096‑byte sectors the maximum size is 
+64 ZiB (264 × 4,096‑bytes) or 75.6 ZB (75.6 × 10²¹ bytes).
+
+[back](#install-os)
+
+[up](#contents)
 
 ### APT
 
@@ -393,25 +410,9 @@ the end user gains access to the package through the mirror.
 
 [back](#install-utilities)
 
-### UFW WIP
+### UFW
 
 UFW Uncomplicated Firewall
-
-[up](#contents)
-
-### MBR 💽️
-
-MBR for Master Boot Record is located on the first disk sector of mass storage devices like fixed disks or removable drives, it contains a partition table containing information on how the disc's sectors are divided into partitions, the MBR also contains executable code to function as a loader for the installed operating system—usually by passing control over to the loader's second stage, or in conjunction with each partition's volume boot record (VBR). This MBR code is usually referred to as a boot loader.
-
-it consists of 512 or more bytes located in the first sector of the drive.
-
-the MBR has now been superseded by GPT the GUID partition table (Globally Unique Identifiers) due to only being limited to 32 bits of logical block addressing, it could only go up to 2tb.
-
-GPT uses 64 bytes for logical block addresses, allowing a maximum disk size of 264 sectors. For disks with 512‑byte sectors, the maximum size is 8 ZiB (264 × 512‑bytes) or 9.44 ZB (9.44 × 10²¹ bytes). For disks with 4,096‑byte sectors the maximum size is 64 ZiB (264 × 4,096‑bytes) or 75.6 ZB (75.6 × 10²¹ bytes).
-
-[back](#install-os)
-
-[up](#contents)
 
 ### LVM 🤷️
 
