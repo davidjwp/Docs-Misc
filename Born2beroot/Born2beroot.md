@@ -402,18 +402,18 @@ SSH stands for Secure Shell Protocol it is a both a network protocole and an app
 
 		VG1		5MB
 		 ____________________________________________________
-		|	physical volume					logical volumes	 |
-		|	(physical extent 5mb)							 |
-		|  ___________________________						 |
-		| |  PE  |  PE  |  PE  |  PE  |		/home___		 |
-		| |______|______|______|______|____|LE|LE|LE|		 |
-		|  ___________________________	|  '--------'		 |
-		| |  PE  |  PE  |  PE  |  PE  |	|	/var____		 |
-		| |______|______|______|______|_|__|LE|LE|LE|		 |
-		|  ___________________________	   '--------'		 |
-		| |  PE  |  PE  |  PE  |  PE  |		/tmp____		 |
-		| |______|______|______|______|____|LE|LE|LE|		 |
-		|								   '--------'		 |
+		|	physical volume		logical volumes      |
+		|	(physical extent 5mb)			     |
+		|  ___________________________			     |
+		| |  PE  |  PE  |  PE  |  PE  |	    /home___	     |
+		| |______|______|______|______|____|LE|LE|LE|	     |
+		|  ___________________________	|  '--------'	     |
+		| |  PE  |  PE  |  PE  |  PE  |	|   /var____ 	     |
+		| |______|______|______|______|_|__|LE|LE|LE|	     |
+		|  ___________________________	   '--------'	     |
+		| |  PE  |  PE  |  PE  |  PE  |	    /tmp____	     |
+		| |______|______|______|______|____|LE|LE|LE|	     |
+		|				   '--------'	     |
 		|____________________________________________________|
 		 
 *the physical volume contains physical extents, blocks of memory refered by logicla volumes and logical extents.*
