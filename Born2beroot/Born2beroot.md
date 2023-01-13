@@ -400,10 +400,27 @@ SSH stands for Secure Shell Protocol it is a both a network protocole and an app
 
 ### LVM WIP🤷️
 
-	 ______
-	|  LV  |
-	|______|
-		|
+		VG1		5MB
+		 ____________________________________________________
+		|	physical volume					logical volumes	 |
+		|	(physical extent 5mb)							 |
+		|  ___________________________						 |
+		| |  PE  |  PE  |  PE  |  PE  |		/home___		 |
+		| |______|______|______|______|____|LE|LE|LE|		 |
+		|  ___________________________	|  '--------'		 |
+		| |  PE  |  PE  |  PE  |  PE  |	|	/var____		 |
+		| |______|______|______|______|_|__|LE|LE|LE|		 |
+		|  ___________________________	   '--------'		 |
+		| |  PE  |  PE  |  PE  |  PE  |		/tmp____		 |
+		| |______|______|______|______|____|LE|LE|LE|		 |
+		|								   '--------'		 |
+		|____________________________________________________|
+		 
+*the physical volume contains physical extents, blocks of memory refered by logicla volumes and logical extents.*
+
+*all is contained within the volume group, this allows for blocks to me moved, concatenate, stripe, etc...*
+
+*the volume group defines the size of each block*
 
 LVM (Logical Volume Manager) is a software/partition scheme used to manage memory by way of memory virtualization for system administrators to allow greater flexibility of use, it can concatenate, stripe or combine partitions into larger virtual partitions.
 
