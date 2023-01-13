@@ -32,9 +32,9 @@ to begin with open VMbox, VMbox for Virtual Box Manager is a free software capab
 
 VMbox runs on x86 hardware and only needs 512MB of RAM for the MBR plus the alloted memory for the OS(though more is always better).
 
-<a name="mbr_back">
+
 *to learn more about MBR go to [MBR](#mbr-💽️)*
-</a>
+
 
 for a brief explanation of virtualization:
 
@@ -145,7 +145,7 @@ you can find the debian image here
 *the last guided method of partitioning uses the entire disk and sets up an encrypted LVM, but what is an LVM?*
 
 
-*jump to [LVM](#LVM) to find out* 🕵‍♂️️
+*jump to [LVM](#lvm-🤷️) to find out* 🕵‍♂️️
 
 *this will create partition with an encrypted higher partition in the disk containing the volume group*
 
@@ -409,7 +409,7 @@ the MBR has now been superseded by GPT the GUID partition table (Globally Unique
 
 GPT uses 64 bytes for logical block addresses, allowing a maximum disk size of 264 sectors. For disks with 512‑byte sectors, the maximum size is 8 ZiB (264 × 512‑bytes) or 9.44 ZB (9.44 × 10²¹ bytes). For disks with 4,096‑byte sectors the maximum size is 64 ZiB (264 × 4,096‑bytes) or 75.6 ZB (75.6 × 10²¹ bytes).
 
-[back](#mbr_back)
+[back](#install-os)
 
 [up](#contents)
 
