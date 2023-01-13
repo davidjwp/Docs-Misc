@@ -33,7 +33,7 @@ to begin with open VMbox, VMbox for Virtual Box Manager is a free software capab
 VMbox runs on x86 hardware and only needs 512MB of RAM for the MBR plus the alloted memory for the OS(though more is always better).
 
 
-*to learn more about MBR go to [MBR](#mbr-💽️)*
+*to learn more about MBR go to*[MBR](#mbr-💽️)
 
 
 for a brief explanation of virtualization:
