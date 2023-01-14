@@ -6,6 +6,7 @@
 - [install OS](#install-os)
 - [install utilities](#install-utilities)
 - [configure utilities](#configure-utilities)
+- [connect to ssh server](#connect-ssh-server)
 - [info](#info)
 - [credits](#credits)
 
@@ -340,13 +341,13 @@ look for the line
 
 	#Port 22
 
-and simply change it to
+and simply change it to this exact line
 
-	#Port 4242
+	Port 4242
 
 you can check for that the line is properly changed with grep
 
-	sudo grep /etc/ssh/ssh_config
+	sudo grep /etc/ssh/sshd_config
 
 then restart ssh again
 
@@ -356,10 +357,57 @@ UFW or Uncomplicated Firewall is a program for managing a netfilter firewall
 
 to learn more about it go to [UFW](#ufw)
 
-before you can connect to the ssh server you have to configurr ufw
+before you can connect to the ssh server you have to configure ufw
 first off enable ufw
 
 	sudo ufw enable
+
+check the status
+
+	sudo ufw status numbered
+
+then configure the rules
+
+	sudo ufw allow ssh
+
+configure the port rules
+
+	sudo ufw allow 4242
+
+you can delete the new rule like this.
+
+	sudo ufw status numbered 
+	sudo ufw delete (the order number, 1 for the first rule, 2 for the second rule)
+
+## connect to SSH server
+
+to connect to the ssh server go to VMbox, go to settings
+
+<img src="../Misc/assets/Born2beroot/ssh_settings.png" alt="ssh_settings" width="650"/>
+
+then go to Network->Adapter 1->Advanced->Port Forwarding
+
+<img src="../Misc/assets/Born2beroot/port_forward.png" alt="port_forward" width="650"/>
+
+create a new rule and write these values
+
+<img src="../Misc/assets/Born2beroot/port_rule.png" alt="port_rule" width="650"/>
+
+then restart the SSH server in the machine
+
+	sudo systemctl restart ssh
+
+check the status 
+
+	sudo service ssh status
+
+then you can connect to the server
+
+	ssh djacobs@127.0.0.1 -p 4242
+
+then exit connection 
+
+	exit
 
 ## INFO
 
@@ -396,10 +444,10 @@ here is how packages are delivered to end user in Debian
 	           |________________________| | |.deb| | ||_________| |
 	                                      | |____| | | _________  |
 	                                      |________| ||_________| |
-	                                       ___|__    |____________|
-	                                      |mirror|
-	                                      |______|
-	                                          |  <----using /etc/apt/sources   
+	                                        ___|__   |____________|
+	                                       |mirror|
+	                                       |______|
+	                                           |  <----using /etc/apt/sources   
 	                                       end user
 
 the upstream author sends the package to the package mainteners who package it, update it and compile it then send it to the server repo.
@@ -451,7 +499,7 @@ level 2 is netfilter kernel components
 		VG1		5MB
 		 ____________________________________________________
 		|   physical volume             logical volumes      |
-		|	(physical extent 5mb)                            |
+		|   (physical extent 5mb)                            |
 		|  ___________________________                       |
 		| |  PE  |  PE  |  PE  |  PE  |	    /home___         |
 		| |______|______|______|______|____|LE|LE|LE|        |
