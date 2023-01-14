@@ -6,7 +6,7 @@
 - [install OS](#install-os)
 - [install utilities](#install-utilities)
 - [configure utilities](#configure-utilities)
-- [connect to ssh server](#connect-to-ssh-serverr)
+- [connect to ssh server](#connect-to-ssh-server)
 - [change password policy](#change-password-policy)
 - [create group](#create-group)
 - [info](#info)
@@ -481,7 +481,7 @@ then reboot for the changes
 
 ## create group
 
-**configure sudo group**
+**create a user assign to group the defense, configure sudo group**
 
 now you need to setup a strong configuration for your sudo group, here are the requirements you have to follow
 
@@ -498,7 +498,7 @@ now you need to setup a strong configuration for your sudo group, here are the r
 /usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/snap/bin
 
 
-so first let's create a group
+so first let's create a group to evaluate
 
 	sudo groupadd djacobs42
 	sudo groupadd evaluating
@@ -507,7 +507,41 @@ you can check if the group is created
 
 	getent group
 
-next 
+next you have to create a user and assign to the group, let's check all the local users by looking at the file
+
+	cut -d: -f1 /etc/passwd
+
+here the cut command line will select a part of the lines from each file to standard output, the '-d' flag will delimit the first part from the specified character ':' '-f1' will select the delimited field, this cuts out only the part you need to see.
+
+create the user
+
+	sudo adduser new_username
+
+assign a user into the evaluating group when you defend 
+
+	sudo usermod -aG djacobs42 djacobs
+	sudo usermod -aG evaluating  new_username
+
+then check if the user is in the group 
+
+	getent group djacobs42
+	getent group evaluating
+
+you can check which group a user belongs to 
+
+	groups
+
+you can check if the password rules work in the user
+
+	chage -l new_username
+
+the chage command allows you to change the user password expiry information the system uses it to check when a user has to change their password.
+
+the '-l' flag goes fo list
+
+now the second part to configure the sudo group 
+
+	
 
 
 
