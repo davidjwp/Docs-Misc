@@ -412,7 +412,39 @@ the end user gains access to the package through the mirror.
 
 ### UFW
 
-UFW Uncomplicated Firewall
+UFW Uncomplicated Firewall is a user-space utility that allows a system administrator to manage a netfilter firewall, it uses a command line interface designed for ease of use, ufw uses iptables for configuration.
+
+iptables are utilities part of the netfilter framework that can also be used to configure the netfilter, ufw is more easy to use but iptables are more complete in functionality.
+
+now what is the netfilter, the netfilter is a framework provided by the Linux kernel that allows various networking-related operations to be implemented in the form of customized handlers. Netfilter offers various functions and operations for packet filtering, network address translation, and port translation, which provide the functionality required for directing packets through a network and prohibiting packets from reaching sensitive locations within a network.
+
+Netfilter represents a set of hooks inside the Linux kernel, allowing specific kernel modules to register callback functions with the kernel's networking stack. Those functions, usually applied to the traffic in the form of filtering and modification rules, are called for every packet that traverses the respective hook within the networking stack.
+
+here is a little overview of some of the components of the netfilter:
+
+		 ____________________________________________________________________________________________________
+		| ebtables | arptables | ip6tables | iptables | iptables- | nft| conntrack       | ulogd2 | (custom) | level 1
+	 ___|__________|___________|___________|__________| nftables  |____|_________________|________|__________|
+	|///|__________|___________|___________|_______   |___________|	   |_____|L3/4 |L7   |		  |			 | level 2
+	|Br-|broute|nat/filter|filter|raw/mangle/filter|  |			  	   |NAT  |tra- |help-|Logging |Queueing  |
+	|id-|______|__________|______|_________________|  |    nf_tables   |engi-|ckers|ers  |via	  |via		 |
+	|gi-|raw/mangle/filter|nat |		   |		  |			  	   |ne   |_____|_____|nf_log  |nf_queue  |
+	|ng/|_________________|____|		   |		  |			  	   |_____| Connection|		  |			 |
+	|///| ebtables | arptables | ip6tables | iptables |			  	   | NAT | tracking  |		  |			 |
+	|///|__________|___________|___________|__________|				   |	 |			 |		  |			 |
+	|///| Xtables									  |				   |	 |			 |		  |			 |
+	|///|_____________________________________________|________________|_____|___________|________|__________|
+	|///| Netfilter hook API															 |					   '/' zone						
+	|___|________________________________________________________________________________|
+	|/from and to to network stack; hardware/////////////////////////////////////////////|
+	|____________________________________________________________________________________|
+
+level 1 is userspace tools 
+
+level 2 is netfilter kernel components
+
+'/' zone is other networking components
+
 
 ### LVM 🤷️
 
@@ -496,4 +528,3 @@ i would like to credit Baigalmaa Baatar for helping me and many other students o
 and i would also like to thank my parents whom i love very much ***cries*** and my brothers ***wipes fake tear*** this is the greatest day of my life ***everyone is clapping*** thank you so much ***torrent of applause*** 🏆️
 
 Thank you for reading my stupid shit!
-
