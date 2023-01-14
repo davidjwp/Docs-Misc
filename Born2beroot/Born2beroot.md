@@ -422,19 +422,19 @@ Netfilter represents a set of hooks inside the Linux kernel, allowing specific k
 
 here is a little overview of some of the components of the netfilter:
 
-		 ____________________________________________________________________________________________________
-		| ebtables | arptables | ip6tables | iptables | iptables- | nft| conntrack       | ulogd2 | (custom) | level 1
+	     ____________________________________________________________________________________________________
+	    | ebtables | arptables | ip6tables | iptables | iptables- | nft| conntrack       | ulogd2 | (custom) | level 1
 	 ___|__________|___________|___________|__________| nftables  |____|_________________|________|__________|
-	|///|__________|___________|___________|_______   |___________|	   |_____|L3/4 |L7   |		  |			 | level 2
-	|Br-|broute|nat/filter|filter|raw/mangle/filter|  |			  	   |NAT  |tra- |help-|Logging |Queueing  |
-	|id-|______|__________|______|_________________|  |    nf_tables   |engi-|ckers|ers  |via	  |via		 |
-	|gi-|raw/mangle/filter|nat |		   |		  |			  	   |ne   |_____|_____|nf_log  |nf_queue  |
-	|ng/|_________________|____|		   |		  |			  	   |_____| Connection|		  |			 |
-	|///| ebtables | arptables | ip6tables | iptables |			  	   | NAT | tracking  |		  |			 |
-	|///|__________|___________|___________|__________|				   |	 |			 |		  |			 |
-	|///| Xtables									  |				   |	 |			 |		  |			 |
+	|///|__________|___________|___________|_______   |___________|    |_____|L3/4 |L7   |        |          | level 2
+	|Br-|broute|nat/filter|filter|raw/mangle/filter|  |                |NAT  |tra- |help-|Logging |Queueing  |
+	|id-|______|__________|______|_________________|  |    nf_tables   |engi-|ckers|ers  |via     |via       |
+	|gi-|raw/mangle/filter|nat |           |          |                |ne   |_____|_____|nf_log  |nf_queue  |
+	|ng/|_________________|____|           |          |                |_____| Connection|        |          |
+	|///| ebtables | arptables | ip6tables | iptables |                | NAT | tracking  |        |          |
+	|///|__________|___________|___________|__________|                |     |           |        |          |
+	|///| Xtables                                     |                |     |           |        |          |
 	|///|_____________________________________________|________________|_____|___________|________|__________|
-	|///| Netfilter hook API															 |					   '/' zone						
+	|///| Netfilter hook API                                                             |                     '/' zone						
 	|___|________________________________________________________________________________|
 	|/from and to to network stack; hardware/////////////////////////////////////////////|
 	|____________________________________________________________________________________|
