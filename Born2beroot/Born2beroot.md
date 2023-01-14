@@ -389,18 +389,18 @@ aptitude is a front-end to APT, it displays a list of software packages and allo
 here is how packages are delivered to end user in Debian
 
 	            ________________________   ________   ____________
-     ________  |  _________   ________  | | server | |autobuilders|
-    |upstream|_|_|packaging|_|updating|_|_|________|_| _________  |
-    |author  | | |_________| |________| | | |repo| | ||_________| |
-    |________| |   package mainteners   | | |____| | | _________  |
-               |________________________| | |.deb| | ||_________| |
-		                              | |____| | | _________  |
-					      |________| ||_________| |
-					       ___|__    |____________|
-					      |mirror|
-					      |______|
-					          |  <----using /etc/apt/sources   
-					       end user
+	 ________  |  _________   ________  | | server | |autobuilders|
+	|upstream|_|_|packaging|_|updating|_|_|________|_| _________  |
+	|author  | | |_________| |________| | | |repo| | ||_________| |
+	|________| |   package mainteners   | | |____| | | _________  |
+	           |________________________| | |.deb| | ||_________| |
+	                                      | |____| | | _________  |
+	                                      |________| ||_________| |
+	                                       ___|__    |____________|
+	                                      |mirror|
+	                                      |______|
+	                                          |  <----using /etc/apt/sources   
+	                                       end user
 
 the upstream author sends the package to the package mainteners who package it, update it and compile it then send it to the server repo.
 
@@ -422,22 +422,22 @@ Netfilter represents a set of hooks inside the Linux kernel, allowing specific k
 
 here is a little overview of some of the components of the netfilter:
 
-	     ___________________________________________________________________________________________________
-	    | ebtables | arptables | ip6tables | iptables| iptables- | nft| conntrack       | ulogd2 |(custom) | level 1
-	 ___|__________|___________|___________|_________| nftables  |____|_________________|________|_________|
-	|///|__________|___________|___________|_______  |___________|    |_____|L3/4 |L7   |        |         | level 2
-	|Br-|broute|nat/filter|filter|raw/mangle/filter| |                |NAT  |tra- |help-|Logging |Queueing |
-	|id-|______|__________|______|_________________| |    nf_tables   |engi-|ckers|ers  |via     |via      |
-	|gi-|raw/mangle/filter|nat |           |         |                |ne   |_____|_____|nf_log  |nf_queue |
-	|ng/|_________________|____|           |         |                |_____| Connection|        |         |
-	|///| ebtables | arptables | ip6tables | iptables|                | NAT | tracking  |        |         |
-	|///|__________|___________|___________|_________|                |     |           |        |         |
-	|///| Xtables                                    |                |     |           |        |         |
-	|///|____________________________________________|________________|_____|___________|________|_________|
-	|///| Netfilter hook API                                                            |                    '/' zone						
-	|___|_______________________________________________________________________________|
-	|/from and to to network stack; hardware////////////////////////////////////////////|
-	|___________________________________________________________________________________|
+	     ____________________________________________________________________________________________________
+	    | ebtables | arptables | ip6tables | iptables | iptables- | nft| conntrack       | ulogd2 | (custom) | level 1
+	 ___|__________|___________|___________|__________| nftables  |____|_________________|________|__________|
+	|///|__________|___________|___________|_______   |___________|    |_____|L3/4 |L7   |        |          | level 2
+	|Br-|broute|nat/filter|filter|raw/mangle/filter|  |                |NAT  |tra- |help-|Logging |Queueing  |
+	|id-|______|__________|______|_________________|  |    nf_tables   |engi-|ckers|ers  |via     |via       |
+	|gi-|raw/mangle/filter|nat |           |          |                |ne   |_____|_____|nf_log  |nf_queue  |
+	|ng/|_________________|____|           |          |                |_____| Connection|        |          |
+	|///| ebtables | arptables | ip6tables | iptables |                | NAT | tracking  |        |          |
+	|///|__________|___________|___________|__________|                |     |           |        |          |
+	|///| Xtables                                     |                |     |           |        |          |
+	|///|_____________________________________________|________________|_____|___________|________|__________|
+	|///| Netfilter hook API                                                             |                     '/' zone						
+	|___|________________________________________________________________________________|
+	|/from and to to network stack; hardware/////////////////////////////////////////////|
+	|____________________________________________________________________________________|
 
 level 1 is userspace tools 
 
@@ -450,18 +450,18 @@ level 2 is netfilter kernel components
 
 		VG1		5MB
 		 ____________________________________________________
-		|	physical volume		logical volumes      |
-		|	(physical extent 5mb)			     |
-		|  ___________________________			     |
-		| |  PE  |  PE  |  PE  |  PE  |	    /home___	     |
-		| |______|______|______|______|____|LE|LE|LE|	     |
-		|  ___________________________	|  '--------'	     |
-		| |  PE  |  PE  |  PE  |  PE  |	|   /var____ 	     |
-		| |______|______|______|______|_|__|LE|LE|LE|	     |
-		|  ___________________________	   '--------'	     |
-		| |  PE  |  PE  |  PE  |  PE  |	    /tmp____	     |
-		| |______|______|______|______|____|LE|LE|LE|	     |
-		|				   '--------'	     |
+		|   physical volume             logical volumes      |
+		|	(physical extent 5mb)                            |
+		|  ___________________________                       |
+		| |  PE  |  PE  |  PE  |  PE  |	    /home___         |
+		| |______|______|______|______|____|LE|LE|LE|        |
+		|  ___________________________  |  '--------'        |
+		| |  PE  |  PE  |  PE  |  PE  |	|   /var____         |
+		| |______|______|______|______|_|__|LE|LE|LE|        |
+		|  ___________________________     '--------'        |
+		| |  PE  |  PE  |  PE  |  PE  |	    /tmp____         |
+		| |______|______|______|______|____|LE|LE|LE|        |
+		|                                  '--------'        |
 		|____________________________________________________|
 		 
 *the physical volume contains physical extents, blocks of memory refered by logicla volumes and logical extents.*
