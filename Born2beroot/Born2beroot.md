@@ -6,7 +6,9 @@
 - [install OS](#install-os)
 - [install utilities](#install-utilities)
 - [configure utilities](#configure-utilities)
-- [connect to ssh server](#connect-ssh-server)
+- [connect to ssh server](#connect-to-ssh-serverr)
+- [change password policy](#change-password-policy)
+- [create group](#create-group)
 - [info](#info)
 - [credits](#credits)
 
@@ -381,7 +383,7 @@ you can delete the new rule like this.
 
 ## connect to SSH server
 
-to connect to the ssh server go to VMbox, go to settings
+to connect to the ssh server go to VMbox settings
 
 <img src="../Misc/assets/Born2beroot/ssh_settings.png" alt="ssh_settings" width="650"/>
 
@@ -408,6 +410,130 @@ then you can connect to the server
 then exit connection 
 
 	exit
+
+## change password policy
+
+one of the thing you have to do is change the password policy with these rule
+
+- the password has to expire every 30 days.
+
+- the minimum number of days allowed before the modification of a password will beset to 2.
+
+- your password must be at least 10 characters long, it must contain an uppercase letter, a lowercase letter and a number, also it must not contain more than 3 consecutive identical characters.
+
+- the password must not include the name of the user
+
+- the following rule does not apply to the root password: the password must have at least 7 characters that are not part of the former password
+
+to do this you need the library parameter-password quality tools which allow you to configure parameters for weak passwords
+
+	sudo apt install libpam-pwquality
+
+then edit the parameter file
+
+	sudo nano /etc/pam.d/common-password
+
+find this rule 
+
+	password	[success=2 default=ignore]	pam_unix.so obscure sha512
+
+add minlen=10
+
+	password	[success=2 default=ignore]	pam_unix.so obscure sha512 minlen=10
+
+then look for 
+
+	password requisite	pam_pwquality.so retry=3
+
+and add the following
+
+lcredit=-1 for minimum lower case.
+ucredit=-1 for minimum upper case.
+dcredit=-1 for minimum number of numbers.
+maxrepeat=3 for maximum amount of repeating character.
+usercheck=0 for wether or not the password contains USER name. 
+difok=7 for different characters from previous password.
+enforce_for_root for enforcing to the root user.
+
+it should look like this on one line
+
+	password requisite	pam_pwquality.so retry=3 lcredit=-1 ucredit=-1 dcredit=-1 maxrepeat=3 usercheck=0 difok=7 enforce_for_boot 
+
+for the password expiration 
+
+	sudo nano /etc/login.defs
+
+look for these lines
+
+	PASS_MAX_DAYS 9999
+	PASS_MIN_DAYS 0
+	PASS_WARN_AGE 7
+
+and change it to a maximum of 30 days and minimum of 2
+
+	PASS_MAX_DAYS 30
+	PASS_MIN_DAYS 2
+	PASS_WARN_AGE 7
+
+then reboot for the changes
+
+	sudo reboot
+
+## create group
+
+**configure sudo group**
+
+now you need to setup a strong configuration for your sudo group, here are the requirements you have to follow
+
+- authentification using sudo has to be limited to 3 attempts in the event of an incorrect password
+
+- a custom message of your choice has to be displayed of an error due to a wrong password occurs using sudo
+
+- each action using sudo has to be archived, both inputs and ouptus, the log file has to be saved in the /var/log/sudo folder
+
+- the TTY mode has to be enabled for security reasons
+
+- for security reasons too, the paths that can be used by sudo must be restricted, example:
+
+/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/snap/bin
+
+
+so first let's create a group
+
+	sudo groupadd djacobs42
+	sudo groupadd evaluating
+
+you can check if the group is created
+
+	getent group
+
+next 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 ## INFO
 
