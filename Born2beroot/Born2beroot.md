@@ -8,7 +8,7 @@
 - [configure utilities](#configure-utilities)
 - [connect to ssh server](#connect-to-ssh-server)
 - [change password policy](#change-password-policy)
-- [create group](#create-group)
+- [create group and configure sudo](#create-group-and-configure-sudo)
 - [info](#info)
 - [credits](#credits)
 
@@ -479,24 +479,11 @@ then reboot for the changes
 
 	sudo reboot
 
-## create group
+## create group and configure sudo
 
-**create a user assign to group the defense, configure sudo group**
+**create a user and assign to a group then configure sudo group**
 
-now you need to setup a strong configuration for your sudo group, here are the requirements you have to follow
-
-- authentification using sudo has to be limited to 3 attempts in the event of an incorrect password
-
-- a custom message of your choice has to be displayed of an error due to a wrong password occurs using sudo
-
-- each action using sudo has to be archived, both inputs and ouptus, the log file has to be saved in the /var/log/sudo folder
-
-- the TTY mode has to be enabled for security reasons
-
-- for security reasons too, the paths that can be used by sudo must be restricted, example:
-
-/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/snap/bin
-
+- **1 user**
 
 so first let's create a group to evaluate
 
@@ -539,9 +526,42 @@ the chage command allows you to change the user password expiry information the 
 
 the '-l' flag goes fo list
 
-now the second part to configure the sudo group 
+-	**2 sudo**
 
-	
+now you need to setup a strong configuration for your sudo group, here are the requirements you have to follow
+
+- authentification using sudo has to be limited to 3 attempts in the event of an incorrect password
+
+- a custom message of your choice has to be displayed of an error due to a wrong password occurs using sudo
+
+- each action using sudo has to be archived, both inputs and ouptus, the log file has to be saved in the /var/log/sudo folder
+
+- the TTY mode has to be enabled for security reasons
+
+- for security reasons too, the paths that can be used by sudo must be restricted, example:
+
+/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/snap/bin
+
+go to the sudoers file.
+
+	sudo nano /etc/sudoers
+
+and add the following lines to secure the path
+
+	Defaults	secure_paths="..."
+	Defaults	passwd_tries=3
+
+secure paths is the path that the sudo command uses whenever it calls a command.
+
+write a custom error message in case of an error with the password, the message can be anything you want
+
+	Defaults	badpass_message="error: invalid password"	
+
+now add the new log file with the input output.
+
+	Defaults	logfile="/var/log/sudo/sudo.log"
+	Defaults	log_input,log_output
+
 
 
 
@@ -618,6 +638,8 @@ the end user gains access to the package through the mirror.
 
 [back](#install-utilities)
 
+[up](#contents)
+
 ### UFW
 
 UFW Uncomplicated Firewall is a user-space utility that allows a system administrator to manage a netfilter firewall, it uses a command line interface designed for ease of use, ufw uses iptables for configuration.
@@ -653,6 +675,9 @@ level 2 is netfilter kernel components
 
 '/' zone is other networking components
 
+[back](#install-utilities)
+
+[up](#contents)
 
 ### LVM 🤷️
 
