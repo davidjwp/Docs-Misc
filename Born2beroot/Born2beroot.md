@@ -482,7 +482,7 @@ enforce_for_root for enforcing to the root user.
 
 it should look like this on one line
 
-	password requisite	pam_pwquality.so retry=3 lcredit=-1 ucredit=-1 dcredit=-1 maxrepeat=3 usercheck=0 difok=7 enforce_for_boot 
+	password requisite	pam_pwquality.so retry=3 lcredit=-1 ucredit=-1 dcredit=-1 maxrepeat=3 usercheck=0 difok=7 enforce_for_root 
 
 for the password expiration 
 
