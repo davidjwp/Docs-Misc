@@ -186,33 +186,43 @@ you can find the debian image here
 	sda1	8:1		0	500M	0	part	/boot
 
 500M | primary | beginning | mount point /boot
+
 	sda5	8:5		0	30.3	0	part
 
 max | logical | beginning | no mount
+
 	sda5_crypt	8:2		0	1K		0	part
 
 configure encrypted volumes | yes | create encrypted volumes | sda5 | done | finish then enter your encryption password
+
 	LVMGroup-root	254:1	0	10G		0	lvm		/
 
 configure the logical volume manager | yes | create logical volume | "LVMGroup" | sda5 create logical volume | LVMGroup | "root" | 10g
+
 	LVMGroup-swap	254:2	0	2.3G	0	lvm		[SWAP]
 
 create logical volume | LVMGroup | "swap" | 2.5g , when all LV done, use as: | swap area
+
 	LVMGroup-home	254:3	0	5G		0	lvm		/home
 
 create logical volume | LVMGroup | "home" | 5g , when all LV done, use as: | ext4 | mount point /home
+
 	LVMGroup-var	254:4	0	3G		0	lvm		/var
 
 create logical volume | LVMGroup | "var" | 3g , when all LV done, use as: | ext4 | mount point /var
+
 	LVMGroup-srv	254:5	0	3G		0	lvm		/srv
 
 create logical volume | LVMGroup | "srv" | 3g , when all LV done, use as: | ext4 | mount point /srv
+
 	LVMGroup-tmp	254:6	0	3G		0	lvm		/tmp
 
 create logical volume | LVMGroup | "tmp" | 3g , when all LV done, use as: | ext4 | mount point /tmp
+
 	LVMGroup-var--log	254:7	0	4G		0	lvm		/var/log
 
 create logical volume | LVMGroup | "var-log" | 4g , when all LV done, use as: | ext4 | mount point enter manually "/var/log"
+
 	sda2	8:2		0	1K		0	part
 
 this is the extended boot record it will be created automatically by grub
