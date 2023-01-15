@@ -8,7 +8,7 @@
 - [configure utilities](#configure-utilities)
 - [connect to ssh server](#connect-to-ssh-server)
 - [change password policy](#change-password-policy)
-- [create group and configure sudo](#create-group-and-configure-sudo)
+- [create group and configure sudo, change hostname](#create-group-and-configure-sudo-change-hostname)
 - [info](#info)
 - [credits](#credits)
 
@@ -83,7 +83,7 @@ VMDK allows incremental backups of changes to data from the time of the last bac
 
 <img src="../Misc/assets/Born2beroot/dynamic_alloc.png" alt="dynamic_alloc" width="760"/>
 
-*leave default*
+*choose 30.80GB for the bonus partitions*
 
 <img src="../Misc/assets/Born2beroot/file_location.png" alt="file_location" width="760"/>
 
@@ -150,7 +150,10 @@ you can find the debian image here
 
 *jump to [LVM](#lvm-🤷️) to find out* 🕵‍♂️️
 
-*this will create partition with an encrypted higher partition in the disk containing the volume group*
+*you can select the third option here, it will set up the right partitions with a higher level encrypted file managed by lvm*
+*if you are doing the bonuses you should pick manual and create each partition exactly like the bonus part wants*
+*i will go into the parts that might prove challenging but i leave the rest to you*
+*so you will create the first partition, the boot partition like in the bonus*
 
 <img src="../Misc/assets/Born2beroot/partition_disk.png" alt="partition_disk" width="630"/>
 
@@ -178,37 +181,38 @@ you can find the debian image here
 
 -	**HARDDISK** self-explanatory
 
-<img src="../Misc/assets/Born2beroot/select_disk.png" alt="select_disk" width="630"/>
+*now all you have to do is create all the other partitions including the logical volumes, here are the specifics to be created in order*
 
-*select the last partition scheme, each logical volume will be explained later*
+-	sda1	8:1		0	500M	0	part	/boot
+	500M | primary | beginning | mount point /boot
+-	sda5	8:5		0	30.3	0	part
+	max | logical | beginning | no mount
+-	sda5_crypt	8:2		0	1K		0	part
+	configure encrypted volumes | yes | create encrypted volumes | sda5 | done | finish
+	then enter your encryption password
+-	LVMGroup-root	254:1	0	10G		0	lvm		/
+	configure the logical volume manager | yes | create logical volume | "LVMGroup" | sda5
+	create logical volume | LVMGroup | "root" | 10g
+-	LVMGroup-swap	254:2	0	2.3G	0	lvm		[SWAP]
+	create logical volume | LVMGroup | "swap" | 2.5g , when all LV done, use as: | swap area
+-	LVMGroup-home	254:3	0	5G		0	lvm		/home
+	create logical volume | LVMGroup | "home" | 5g , when all LV done, use as: | ext4 | mount point /home
+-	LVMGroup-var	254:4	0	3G		0	lvm		/var
+	create logical volume | LVMGroup | "var" | 3g , when all LV done, use as: | ext4 | mount point /var
+-	LVMGroup-srv	254:5	0	3G		0	lvm		/srv
+	create logical volume | LVMGroup | "srv" | 3g , when all LV done, use as: | ext4 | mount point /srv
+-	LVMGroup-tmp	254:6	0	3G		0	lvm		/tmp
+	create logical volume | LVMGroup | "tmp" | 3g , when all LV done, use as: | ext4 | mount point /tmp
+-	LVMGroup-var--log	254:7	0	4G		0	lvm		/var/log
+	create logical volume | LVMGroup | "var-log" | 4g , when all LV done, use as: | ext4 | mount point enter manually "/var/log"
+-	sda2	8:2		0	1K		0	part
+	this is the extended boot record it will be created automatically by grub
 
-<img src="../Misc/assets/Born2beroot/select_partition.png" alt="select_partition" width="630"/>
-
-*prepare to wait*
+*then prepare to wait*
 
 # ⏳️
 
 <img src="../Misc/assets/Born2beroot/write.png" alt="write" width="630"/>
-
-*there is a minimum of 8 characters for the encryption password*
-
-<img src="../Misc/assets/Born2beroot/enc_pass.png" alt="enc_pass" width="630"/>
-
-*set to max*
-
-<img src="../Misc/assets/Born2beroot/vg_size.png" alt="vg_size" width="630"/>
-
-*here you can see the lvm VG(Volume Group) named by the hostname-vg and every LV(Logical Volume) included*
-
-*below you can see the partition table(not MBR)*
-
--	**ext4/ext2/crypto** this is the type of file system, ext4 goes for extended file system fourth generation, so is ext2 and crypto means that it is encrypted
-
-<img src="../Misc/assets/Born2beroot/finish_write.png" alt="finish_write" width="630"/>
-
-*now's the waiting game*
-
-<img src="../Misc/assets/Born2beroot/accept_finish.png" alt="accept_finish" width="630"/>
 
 <img src="../Misc/assets/Born2beroot/scanning_media.png" alt="scanning_media" width="630"/>
 
@@ -433,7 +437,9 @@ then edit the parameter file
 
 	sudo nano /etc/pam.d/common-password
 
-find this rule 
+find this rule, this rule describes what the rule applies to (pam_unix.so), the obscure option enables complexity checks.
+
+sha512 enforces password encryption and decryption algorithm of the hash function.
 
 	password	[success=2 default=ignore]	pam_unix.so obscure sha512
 
@@ -443,7 +449,7 @@ add minlen=10
 
 then look for 
 
-	password requisite	pam_pwquality.so retry=3
+	password requisite		pam_pwquality.so retry=3
 
 and add the following
 
@@ -479,9 +485,9 @@ then reboot for the changes
 
 	sudo reboot
 
-## create group and configure sudo
+## create group and configure sudo, change hostname
 
-**create a user and assign to a group then configure sudo group**
+**create a user and assign to a group then configure sudo group and change hostname**
 
 - **1 user**
 
@@ -548,7 +554,7 @@ go to the sudoers file.
 
 and add the following lines to secure the path
 
-	Defaults	secure_paths="..."
+	Defaults	secure_path="..."
 	Defaults	passwd_tries=3
 
 secure paths is the path that the sudo command uses whenever it calls a command.
@@ -562,9 +568,49 @@ now add the new log file with the input output.
 	Defaults	logfile="/var/log/sudo/sudo.log"
 	Defaults	log_input,log_output
 
+now write this line to activate the TTY mode, tty is a command to provide the file name of the terminal connected to the standard input.
 
+it is a security measure.
 
+	Defaults	requiretty
 
+and finally this line to secure the paths though it might already be in there.
+
+	Defaults	secure_path="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/snap/bin"
+
+-	**3 hostname**
+
+it is good to know how to change the hostname during the defense, first let's check the hostname.
+
+	hostnamectl
+
+this gives you a lot of information not only of the hostname but of the whole machine.
+
+now change the hostname like this.
+
+	hostnamectl set-hostname new_hostname
+
+then change the /etc/hosts file by going to.
+
+	sudo nano /etc/hosts
+
+and your old hostname to the new one. 
+
+	127.0.0.1	localhost
+	127.0.0.1	djacobs42
+
+then reboot and check the changes.
+
+	sudo reboot
+	hostnamectl
+
+## Crontab script
+
+the last thing to do ommiting the bonuses.
+
+cron is a command line utility job scheduler which manages background tasks.
+
+you can use it in the script.
 
 
 
