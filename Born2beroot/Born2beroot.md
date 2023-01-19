@@ -629,7 +629,33 @@ the last thing to do ommiting the bonuses.
 
 cron is a command line utility job scheduler which manages background tasks.
 
-you can use it in the script.
+crontab files are files executed in timed intervals, you can create one to give the scheduled output asked.
+
+this is that script, let's go trough each command:
+
+	#!/bin/bash
+	wall $'#Architecture: ' `hostnamectl | grep "Operating System" | cut -d ' ' -f5- ` `awk -F':' '/^model name/ {print $2}' /proc/cpuinfo | 	uniq | sed -e 's/^[ \t]*//'` `arch` \
+	$'\n#CPU physical: '`cat /proc/cpuinfo | grep processor | wc -l` \
+	$'\n#vCPU:  '`cat /proc/cpuinfo | grep processor | wc -l` \
+	$'\n'`free -m | awk 'NR==2{printf "#Memory Usage: %s/%sMB (%.2f%%)", $3,$2,$3*100/$2 }'` \
+	$'\n'`df -h | awk '$NF=="/"{printf "#Disk Usage: %d/%dGB (%s)", $3,$2,$5}'` \
+	$'\n'`top -bn1 | grep load | awk '{printf "#CPU Load: %.2f\n", $(NF-2)}'` \
+	$'\n#Last boot: ' `who -b | awk '{print $3" "$4" "$5}'` \
+	$'\n#LVM use: ' `lsblk |grep lvm | awk '{if ($1) {print "yes";exit;} else {print "no"} }'` \
+	$'\n#Connection TCP:' `netstat -an | grep ESTABLISHED |  wc -l` \
+	$'\n#User log: ' `who | cut -d " " -f 1 | sort -u | wc -l` \
+	$'\nNetwork: IP ' `hostname -I`"("`ip a | grep link/ether | awk '{print $2}'`")" \
+	$'\n#Sudo:  ' `grep 'sudo ' /var/log/auth.log | wc -l`
+
+first off the shebang giving the path of the shell and the interpreter bash
+
+this is the first command, don't worry if you think this is a scary command that's because it does a lot of things at once.
+
+	wall $'#Architecture: ' `hostnamectl | grep "Operating System" | cut -d ' ' -f5- ` `awk -F':' '/^model name/ {print $2}' /proc/cpuinfo | 	uniq | sed -e 's/^[ \t]*//'` `arch` \
+
+Wall displays a message to all users or the content of a file, it will print '#Architecture: ' followed by a command substitution, hostnamectl whos ouput is given to grep and will look for the string "Operating System", that line is cut to the fifth field from the end of the line, then the substitute is closed and another is opened.
+
+the second substitute takes the file containing all the cpu info '/proc/cpuinfo' and looks for the line starting with 'model name' using the option -F for field separator and replacing the default space character with ':', thus the line is now considered to be two fields separated by the ':' character, awk prints the second field which is all the information in 'model name' given then to the command uniq who filters duplicate lines and sed opens a substitution for [look up regular expression for sed to see for 's///' (in manual s/regecp/replacement/)]
 
 
 
