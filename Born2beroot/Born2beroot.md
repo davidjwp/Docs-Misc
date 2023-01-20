@@ -627,11 +627,15 @@ then reboot and check the changes.
 
 the last thing to do ommiting the bonuses.
 
+first off you will need to install netstat, a tool to get information on network connections, it will be used in the script.
+
+	apt install net-tools
+
 cron is a command line utility job scheduler which manages background tasks.
 
 crontab files are files executed in timed intervals, you can create one to give the scheduled output asked.
 
-this is that script, let's go trough each command:
+this is that script, if you want to know what each command does go [HERE](#script-info):
 
 	#!/bin/bash
 	wall $'#Architecture: ' `hostnamectl | grep "Operating System" | cut -d ' ' -f5- ` `awk -F':' '/^model name/ {print $2}' /proc/cpuinfo | 	uniq | sed -e 's/^[ \t]*//'` `arch` \
@@ -646,16 +650,6 @@ this is that script, let's go trough each command:
 	$'\n#User log: ' `who | cut -d " " -f 1 | sort -u | wc -l` \
 	$'\nNetwork: IP ' `hostname -I`"("`ip a | grep link/ether | awk '{print $2}'`")" \
 	$'\n#Sudo:  ' `grep 'sudo ' /var/log/auth.log | wc -l`
-
-first off the shebang giving the path of the shell and the interpreter bash
-
-this is the first command, don't worry if you think this is a scary command that's because it does a lot of things at once.
-
-	wall $'#Architecture: ' `hostnamectl | grep "Operating System" | cut -d ' ' -f5- ` `awk -F':' '/^model name/ {print $2}' /proc/cpuinfo | 	uniq | sed -e 's/^[ \t]*//'` `arch` \
-
-Wall displays a message to all users or the content of a file, it will print '#Architecture: ' followed by a command substitution, hostnamectl whos ouput is given to grep and will look for the string "Operating System", that line is cut to the fifth field from the end of the line, then the substitute is closed and another is opened.
-
-the second substitute takes the file containing all the cpu info '/proc/cpuinfo' and looks for the line starting with 'model name' using the option -F for field separator and replacing the default space character with ':', thus the line is now considered to be two fields separated by the ':' character, awk prints the second field which is all the information in 'model name' given then to the command uniq who filters duplicate lines and sed opens a substitution for [look up regular expression for sed to see for 's///' (in manual s/regecp/replacement/)]
 
 
 
@@ -681,6 +675,80 @@ the second substitute takes the file containing all the cpu info '/proc/cpuinfo'
 
 
 ## INFO
+
+### Script info
+
+here is the script, let's go trough each command:
+
+	#!/bin/bash
+	wall $'#Architecture: ' `hostnamectl | grep "Operating System" | cut -d ' ' -f5- ` `awk -F':' '/^model name/ {print $2}' /proc/cpuinfo | 	uniq | sed -e 's/^[ \t]*//'` `arch` \
+	$'\n#CPU physical: '`cat /proc/cpuinfo | grep processor | wc -l` \
+	$'\n#vCPU:  '`cat /proc/cpuinfo | grep processor | wc -l` \
+	$'\n'`free -m | awk 'NR==2{printf "#Memory Usage: %s/%sMB (%.2f%%)", $3,$2,$3*100/$2 }'` \
+	$'\n'`df -h | awk '$NF=="/"{printf "#Disk Usage: %d/%dGB (%s)", $3,$2,$5}'` \
+	$'\n'`top -bn1 | grep load | awk '{printf "#CPU Load: %.2f\n", $(NF-2)}'` \
+	$'\n#Last boot: ' `who -b | awk '{print $3" "$4" "$5}'` \
+	$'\n#LVM use: ' `lsblk |grep lvm | awk '{if ($1) {print "yes";exit;} else {print "no"} }'` \
+	$'\n#Connection TCP:' `netstat -an | grep ESTABLISHED |  wc -l` \
+	$'\n#User log: ' `who | cut -d " " -f 1 | sort -u | wc -l` \
+	$'\nNetwork: IP ' `hostname -I`"("`ip a | grep link/ether | awk '{print $2}'`")" \
+	$'\n#Sudo:  ' `grep 'sudo ' /var/log/auth.log | wc -l`
+
+first off the shebang giving the path of the shell and the interpreter bash
+
+this is the first command, don't worry if you think this is a scary command that's because it does a lot of things at once.
+
+	wall $'#Architecture: ' `hostnamectl | grep "Operating System" | cut -d ' ' -f5- ` `awk -F':' '/^model name/ {print $2}' /proc/cpuinfo | 	uniq | sed -e 's/^[ \t]*//'` `arch` \
+
+Wall displays a message to all users or the content of a file, it will print '#Architecture: ' followed by a command substitution, hostnamectl whos ouput is given to grep and will look for the string "Operating System", that line is cut to the fifth field from the end of the line, then the substitute is closed and another is opened.
+
+the second substitute takes the file containing all the cpu info '/proc/cpuinfo' and looks for the line starting with 'model name' using the option -F for field separator and replacing the default space character with ':', thus the line is now considered to be two fields separated by the ':' character, awk prints the second field which is all the information in 'model name' given then to the command uniq who filters duplicate lines, the line is then passed to sed.
+
+sed is a stream editor, here the '-e' executes the command that is found in the pattern space and replaces the pattern space with the ouput, then 's/^[ \t]*//' means that it will look for all '\t' characters and replace them with nothing, deleting them, and finally the final substitution with the command arch adds the information on the architecture of the current machine to the end of the line.
+
+this gives us the name and version of the OS, the model of the cpu and the type of architecture.
+
+the second line 
+
+	$'\n#CPU physical: '`cat /proc/cpuinfo | grep processor | wc -l` \
+
+it is a continuation of the first line that starts out with a newline, it prints '\n#CPU physical: ' and subtitutes to a cat for the /proc/cpuinfo piped to a grep to take the processor line, and wc gives the amount of lines counted.
+
+this way we get the number of physical cpu processes.
+
+the third line
+
+	$'\n#vCPU:  '`cat /proc/cpuinfo | grep processor | wc -l` \
+
+this is the same line as before, because there is a same amount of virtual and physical processors.
+
+the fourth line. 
+
+	$'\n'`free -m | awk 'NR==2{printf "#Memory Usage: %s/%sMB (%.2f%%)", $3,$2,$3*100/$2 }'` \
+
+print newline, then substitute to free -m to display the amount of free and used memory in the system using mebibytes, the awk command will scan the line for the right pattern, in this case the pattern to match is 'NR==2' NR goes for the number of lines so when gawk has read 2 lines it will print "#Memory Usage: %s/%sMB (%.2f%%)" using the function printf with the variables $3,$2,$3*100/$2 which each correspond to a field in the output of free with '%.2f' giving the decimal up to two numbers, giving the amount of memory and the percentage used.
+
+the fifth line..
+
+	$'\n'`df -h | awk '$NF=="/"{printf "#Disk Usage: %d/%dGB (%s)", $3,$2,$5}'` \
+
+newline then substitute to the command df which displays the amount of disk space available on the file system containing each file name argument, the option -h gives readable sizes, this is then piped to awk with the condition of $NF=="/" NF goes for the number of fields and will look for '/' in the fields, when found it will print the information of per field on that line, the '\' field will correspond to the root mount type.
+
+the sixth line.
+
+	$'\n'`top -bn1 | grep load | awk '{printf "#CPU Load: %.2f\n", $(NF-2)}'` \
+
+newline, substitute to top command displaying the Linux processes with the options 'b'+'n'+'1' each respecively corresponds to 
+
+-	**Batch-mode:** Starts top in Batch mode, in this mode top will not accept input and runs until the iterations limit you've set with the '-n' option or until killed.
+
+-	**Numer-of-iterations:** Specifies the maximum number of iterations or frames top should produce before ending.
+
+-	**Single/Separate-Cpu-States:** Starts top with the last remembered Cpu states portion of the summary area reversed.
+
+then pipe to grep and look for the 'load' line, pipe to awk and printf the information on the line up to two decimal, that info is the second field. giving the average of the cpu load on the system.
+
+
 
 ### MBR 💽️
 
