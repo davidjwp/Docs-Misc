@@ -748,6 +748,41 @@ newline, substitute to top command displaying the Linux processes with the optio
 
 then pipe to grep and look for the 'load' line, pipe to awk and printf the information on the line up to two decimal, that info is the second field. giving the average of the cpu load on the system.
 
+the seventh line 
+
+	$'\n#Last boot: ' `who -b | awk '{print $3" "$4" "$5}'` \
+
+prints '\n#Last boot: ' then substitutes to the who command showing who is logged on with the '-b' option for time of last system boot piped to awk that prints the selected fields.
+
+the eighth line
+
+	$'\n#LVM use: ' `lsblk |grep lvm | awk '{if ($1) {print "yes";exit;} else {print "no"} }'` \
+
+prints '\n#LVM use: ' then substitutes to lsblk then pipes to grep looking for lvm, then pipes to awk, here awk uses a conditional if statement, if ($1) so if the first field is true(if there is a first field) then print "yes" and exit, else print "no".
+
+like so you can check wether lvm is being used or not.
+
+the ninth line
+
+	$'\n#Connection TCP:' `netstat -an | grep ESTABLISHED |  wc -l` \
+
+in this line '\n#Connection TCP: ' is printed then substitute to the netstat tool to print network connections and divers network information, the options '-an' go respectively for all to show both listening and non-listening sockets and numeric to show numerical addresses instead of trying to determine symolic host.
+
+this then is piped to grep looking for 'ESTABLISHED' then piped to the wc command giving the nummber of lines in list format.
+
+this way you get the number of TCP connections
+
+the tenth line
+
+	$'\n#User log: ' `who | cut -d " " -f 1 | sort -u | wc -l` \
+
+the line '\n#User log: ' is printed then a substitute to the who command, piped to cut delimiting spaces and taking the first field then piped to the sort command which will sort the lines given into equal parts, then piped to wc to give the amount of users.
+
+the eleventh line
+
+	$'\nNetwork: IP ' `hostname -I`"("`ip a | grep link/ether | awk '{print $2}'`")" \
+
+
 
 
 ### MBR 💽️
