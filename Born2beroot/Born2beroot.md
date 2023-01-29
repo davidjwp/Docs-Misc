@@ -633,7 +633,7 @@ first off you will need to install netstat, a tool to get information on network
 
 cron is a command line utility job scheduler which manages background tasks.
 
-crontab files are files executed in timed intervals, you can create one to give the scheduled output asked.
+crontab files are used to schedule execution of programs. 
 
 this is that script, if you want to know what each command does go [HERE](#script-info):
 
@@ -651,28 +651,39 @@ this is that script, if you want to know what each command does go [HERE](#scrip
 	$'\nNetwork: IP ' `hostname -I`"("`ip a | grep link/ether | awk '{print $2}'`")" \
 	$'\n#Sudo:  ' `grep 'sudo ' /var/log/auth.log | wc -l`
 
+This file is named monitoring.sh and placed in /usr/local/bin/
 
+Next you have to add a rule to make it execute without sudo permission, to do this go into sudoer
 
+     Sudo visudo
 
+And add this line
 
+your_username ALL=(ALL) NOPASSWD: /usr/local/bin/monitoring.sh
 
+Here the rule NOASSWD indicates that no password is required for permission to execute.
 
+After this, reboot.
 
+     Sudo reboot
 
+And execute the script as root 
 
+     $ sudo /usr/local/bin/monitoring.sh
 
+Then open crontab and add the rule
 
+    $ sudo crontab -u root -e
 
+Here the command crontab used with the option u for user then indicating root for the user whose crontab you are modifying, then e for editor which will open in the editor.
 
+Then add the following line at the end 
 
+     */10 * * * * /usr/local/bin/monitoring.sh
 
+If an error occurs when the VM is rebooted, it might be a problem with the display see [here](https://unix.stackexchange.com/questions/502540/why-does-drmvmw-host-log-vmwgfx-error-failed-to-send-host-log-message-sh)
 
-
-
-
-
-
-
+     $ drm:vmw_host_log *ERROR* Failed to send host log message.
 
 ## INFO
 
@@ -782,8 +793,15 @@ the eleventh line
 
 	$'\nNetwork: IP ' `hostname -I`"("`ip a | grep link/ether | awk '{print $2}'`")" \
 
+Prints the line '\nNetwork IP ' then substitutes to the command hostname which allows you yo show or set the system host name, the option '-i' will give you all the ip addresses.
 
+Then print "(" then substitutes to ip a net-tool for system administrators the option ais used to display and modify network adresses, then pipe to grep looking for link/ether pipe to awk then print the second field, exit substitute and print ")".
 
+The twelfth line 
+
+$'\n#Sudo:  ' `grep 'sudo ' /var/log/auth.log | wc -l`
+
+Finally the last line will print '\n#Sudo: ' then substitute to grep which will look for sudo in the /var/log/auth.log file then pipe to wc to get the number of lines taken.
 
 ### MBR 💽️
 
