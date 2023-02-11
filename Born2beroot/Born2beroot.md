@@ -786,6 +786,9 @@ enter MariaDB root password then create a database for WordPress
 	MariaDB [(none)]> FLUSH PRIVILEGES;
 	MariaDB [(none)]> EXIT;
 
+you can then check for the database like this 
+
+	MariaDB [(none)]>show databases
 first off you create the database, then create user admin at the localhost, then you grant all privileges on the database you created to the user with grant options allowing the user to pass on privileges on other users, then flush privileges to apply them and exit.
 
 now to install Wordpress, first you need two tools.
@@ -806,7 +809,7 @@ then download the latest version of Wordpress using wget, extract the archive mo
 
 create a Wordpress configuration file like this.
 
-	sudo mv /var/www/html/wp-config-sample.php /var/www/html/wp-config.php
+	nano /var/www/html/wp-config.php
 
 then edit like this 
 	<?php
@@ -815,13 +818,13 @@ then edit like this
 	define( 'DB_PASSWORD', 'password' );
 	define( 'DB_HOST', 'localhost' );
 
-then change permission for Wordpress directory to grant rights to the web server and restart lighttpd
+then change permission for Wordpress directory to grant rights to the web server and restart lighttpd, so first you change the file owner using chown and -R as recursive then change file permission using chmod -R recursive and the rights to change in decimal form, then restart.
 
 	sudo chown -R www-data:www-data /var/www/html/
 	sudo chmod -R 755 /var/www/html/
 	sudo systemctl restart lighttpd
 
-then in hostt browser you can connect to http://127.0.0.1:8080 and finish the Wordpress installation
+then in host browser you can connect to http://127.0.0.1:8080 and finish the Wordpress installation
 
 ## INFO
 
