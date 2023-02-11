@@ -9,6 +9,8 @@
 - [connect to ssh server](#connect-to-ssh-server)
 - [change password policy](#change-password-policy)
 - [create group and configure sudo, change hostname](#create-group-and-configure-sudo-change-hostname)
+- [Crontab script](#crontab-script)
+- [Wordpress website](#wordpress-website)
 - [info](#info)
 - [credits](#credits)
 
@@ -638,7 +640,7 @@ crontab files are used to schedule execution of programs.
 this is that script, if you want to know what each command does go [HERE](#script-info):
 
 	#!/bin/bash
-	wall $'#Architecture: ' `hostnamectl | grep "Operating System" | cut -d ' ' -f5- ` `awk -F':' '/^model name/ {print $2}' /proc/cpuinfo | 	uniq | sed -e 's/^[ \t]*//'` `arch` \
+	wall $'#Architecture: ' `uname -a` \
 	$'\n#CPU physical: '`cat /proc/cpuinfo | grep processor | wc -l` \
 	$'\n#vCPU:  '`cat /proc/cpuinfo | grep processor | wc -l` \
 	$'\n'`free -m | awk 'NR==2{printf "#Memory Usage: %s/%sMB (%.2f%%)", $3,$2,$3*100/$2 }'` \
@@ -661,7 +663,7 @@ And add this line
 
 your_username ALL=(ALL) NOPASSWD: /usr/local/bin/monitoring.sh
 
-Here the rule NOASSWD indicates that no password is required for permission to execute.
+Here the rule NOPASSWD indicates that no password is required for permission to execute.
 
 After this, reboot.
 
@@ -679,11 +681,147 @@ Here the command crontab used with the option u for user then indicating root fo
 
 Then add the following line at the end 
 
-     */10 * * * * /usr/local/bin/monitoring.sh
+     */10 * * * * bash /usr/local/bin/monitoring.sh
 
 If an error occurs when the VM is rebooted, it might be a problem with the display see [here](https://unix.stackexchange.com/questions/502540/why-does-drmvmw-host-log-vmwgfx-error-failed-to-send-host-log-message-sh)
 
      $ drm:vmw_host_log *ERROR* Failed to send host log message.
+
+## wordpress website
+
+now for the bonus part of the exercise, you have to install a wordpress website with lighttpd, MariaDB and PHP.
+
+So first off what are those ?
+
+Lighttpd is a webserver for speed critical environement like handling 100000 connections at once, The low memory footprint (compared to other web servers), small CPU load and speed optimizations make lighttpd suitable for servers that are suffering load problems, lighttpd is free and open-source software and is distributed under the BSD license. It runs natively on Unix-like operating systems, as well as Microsoft Windows.
+
+MariaDB is a software for managing database, it allows the user to create, maintain, control and define access to the database.
+
+and PHP for hypertext preprocessor is a programmation language mainly used to make dinamyc websites by an http server, it also works as any other programming language.
+
+first off let's install PHP, you need to install the sury package this is the PHP package for Debian.
+
+	sudo apt update
+	sudo apt install curl
+	sudo curl -sSL https://packages.sury.org/php/README.txt | sudo bash -x
+	sudo apt update
+
+curl is a tool for transfering data from or to a server, the options -sSL -s goes for sient to run in silent mode, -S show error when used with -s will show error if it fails, if the http server reports that the requested page has moved to a different location this option will make curl redo the request on the new place.
+
+these options are not necessary and are only there in case of an error, the pipe to sudo bash -x will execute the script fetched from the address as it is read. 
+
+the script will add the sury repository. 
+
+	sudo apt install php8.2
+	sudo apt install php-common php-cgi php-cli php-mysql
+
+their might be some conflict between apache and lighttpd so you might have to uninstall it.
+
+	apt purg apache2
+
+this will install some of the php packages, make sure that you install the latest version of php.
+
+then install lighttpd
+
+	sudo apt install lighttpd
+	sudo systemctl start lighttpd
+	sudo systemctl enable lighttpd
+	sudo systemctl status lighttpd
+
+then allow http port 80 through UFW
+
+	sudo ufw allow http
+	sudo ufw status
+
+then forward host port to guest port 
+
+* Go to VM >> ```Settings``` >> ```Network``` >> ```Adapter 1``` >> ```Port Forwarding```
+* Add rule for host port ```8080``` to forward to guest port ```80```
+
+To test Lighttpd, go to host machine browser and type in address http://127.0.0.1:8080 or http://localhost:8080. You should see a Lighttpd "placeholder page".
+
+Back in VM, activate lighttpd FastCGI module:
+
+	sudo lighty-enable-mod fastcgi
+	sudo lighty-enable-mod fastcgi-php
+	sudo service lighttpd force-reload
+
+to test lighttpd, create a file in /var/www/html called info.php
+
+
+	<?php
+	phpinfo();
+	?>
+
+save and go to host browser and type in the address http://127.0.0.1:8080/info.php
+
+now to install MariaDB
+
+	sudo apt install mariadb-server
+	sudo systemctl start mariadb
+	sudo systemctl enable mariadb
+	systemctl status mariadb
+
+then install the MySQL secure installation
+
+	sudo mysql_secure_installation
+
+then for the installation enter the following.
+
+-	none | Y | Y | Newpass1# | Newpass1# | Y | Y | Y | Y
+
+restart the service 
+
+	sudo systemctl restart mariadb
+
+then enter the interface 
+
+	mysql -u root -p 
+
+enter MariaDB root password then create a database for WordPress
+
+	MariaDB [(none)]> CREATE DATABASE wordpress_db;
+	MariaDB [(none)]> CREATE USER 'admin'@'localhost' IDENTIFIED BY 'password';
+	MariaDB [(none)]> GRANT ALL ON wordpress_db.* TO 'admin'@'localhost' IDENTIFIED BY 'password' WITH GRANT OPTION;
+	MariaDB [(none)]> FLUSH PRIVILEGES;
+	MariaDB [(none)]> EXIT;
+
+first off you create the database, then create user admin at the localhost, then you grant all privileges on the database you created to the user with grant options allowing the user to pass on privileges on other users, then flush privileges to apply them and exit.
+
+now to install Wordpress, first you need two tools.
+
+	sudo apt install wget
+	sudo apt install tar
+
+wget is a software to download files from the web.
+
+tar is a tool to manipulate archives.
+
+then download the latest version of Wordpress using wget, extract the archive move it and clean the rest.
+
+	wget http://wordpress.org/latest.tar.gz
+	tar -xzvf latest.tar.gz
+	sudo mv wordpress/* /var/www/html/
+	rm -rf latest.tar.gz wordpress/
+
+create a Wordpress configuration file like this.
+
+	sudo mv /var/www/html/wp-config-sample.php /var/www/html/wp-config.php
+
+then edit like this 
+	<?php
+	define( 'DB_NAME', 'wordpress_db' );
+	define( 'DB_USER', 'admin' );
+	define( 'DB_PASSWORD', 'password' );
+	define( 'DB_HOST', 'localhost' );
+
+then change permission for Wordpress directory to grant rights to the web server and restart lighttpd
+
+	sudo chown -R www-data:www-data /var/www/html/
+	sudo chmod -R 755 /var/www/html/
+	sudo systemctl restart lighttpd
+
+then in hostt browser you can connect to http://127.0.0.1:8080 and finish the Wordpress installation
 
 ## INFO
 
@@ -692,7 +830,7 @@ If an error occurs when the VM is rebooted, it might be a problem with the displ
 here is the script, let's go trough each command:
 
 	#!/bin/bash
-	wall $'#Architecture: ' `hostnamectl | grep "Operating System" | cut -d ' ' -f5- ` `awk -F':' '/^model name/ {print $2}' /proc/cpuinfo | 	uniq | sed -e 's/^[ \t]*//'` `arch` \
+	wall $'#Architecture: ' `uname -a` \
 	$'\n#CPU physical: '`cat /proc/cpuinfo | grep processor | wc -l` \
 	$'\n#vCPU:  '`cat /proc/cpuinfo | grep processor | wc -l` \
 	$'\n'`free -m | awk 'NR==2{printf "#Memory Usage: %s/%sMB (%.2f%%)", $3,$2,$3*100/$2 }'` \
@@ -707,17 +845,11 @@ here is the script, let's go trough each command:
 
 first off the shebang giving the path of the shell and the interpreter bash
 
-this is the first command, don't worry if you think this is a scary command that's because it does a lot of things at once.
+this is the first command, it is pretty simple.
 
-	wall $'#Architecture: ' `hostnamectl | grep "Operating System" | cut -d ' ' -f5- ` `awk -F':' '/^model name/ {print $2}' /proc/cpuinfo | 	uniq | sed -e 's/^[ \t]*//'` `arch` \
+	wall $'#Architecture: ' `uname -a` \
 
-Wall displays a message to all users or the content of a file, it will print '#Architecture: ' followed by a command substitution, hostnamectl whos ouput is given to grep and will look for the string "Operating System", that line is cut to the fifth field from the end of the line, then the substitute is closed and another is opened.
-
-the second substitute takes the file containing all the cpu info '/proc/cpuinfo' and looks for the line starting with 'model name' using the option -F for field separator and replacing the default space character with ':', thus the line is now considered to be two fields separated by the ':' character, awk prints the second field which is all the information in 'model name' given then to the command uniq who filters duplicate lines, the line is then passed to sed.
-
-sed is a stream editor, here the '-e' executes the command that is found in the pattern space and replaces the pattern space with the ouput, then 's/^[ \t]*//' means that it will look for all '\t' characters and replace them with nothing, deleting them, and finally the final substitution with the command arch adds the information on the architecture of the current machine to the end of the line.
-
-this gives us the name and version of the OS, the model of the cpu and the type of architecture.
+uname prints the system information and the option -a gives all the informations.
 
 the second line 
 
@@ -793,15 +925,19 @@ the eleventh line
 
 	$'\nNetwork: IP ' `hostname -I`"("`ip a | grep link/ether | awk '{print $2}'`")" \
 
-Prints the line '\nNetwork IP ' then substitutes to the command hostname which allows you yo show or set the system host name, the option '-i' will give you all the ip addresses.
+Prints the line '\nNetwork IP ' then substitutes to the command hostname which allows you to show or set the system host name, the option '-i' will give you all the ip addresses.
 
-Then print "(" then substitutes to ip a net-tool for system administrators the option ais used to display and modify network adresses, then pipe to grep looking for link/ether pipe to awk then print the second field, exit substitute and print ")".
+Then print "(" then substitutes to ip a net-tool for system administrators the option a is used to display and modify network adresses, then pipe to grep looking for link/ether pipe to awk then print the second field, exit substitute and print ")".
 
 The twelfth line 
 
 $'\n#Sudo:  ' `grep 'sudo ' /var/log/auth.log | wc -l`
 
 Finally the last line will print '\n#Sudo: ' then substitute to grep which will look for sudo in the /var/log/auth.log file then pipe to wc to get the number of lines taken.
+
+[back](#Crontab-script)
+
+[up](#contents)
 
 ### MBR 💽️
 
@@ -968,7 +1104,7 @@ for more info on LVM, Device Mapper and device files check out the [ressources](
 
 ## credits
 
-i would like to credit Baigalmaa Baatar for helping me and many other students on this project.
+i would like to credit Baigalmaa Baatar and mcombeau for helping me and many other students on this project.
 
 and i would also like to thank my parents whom i love very much ***cries*** and my brothers ***wipes fake tear*** this is the greatest day of my life ***everyone is clapping*** thank you so much ***torrent of applause*** 🏆️
 
