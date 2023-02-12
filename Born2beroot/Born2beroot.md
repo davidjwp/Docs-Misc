@@ -187,7 +187,7 @@ you can find the debian image here
 
 **sda1	8:1		0	500M	0	part	/boot**
 
-500M | primary | beginning | mount point /boot
+525M | primary | beginning | mount point /boot
 
 **sda5	8:5		0	30.3	0	part**
 
@@ -199,7 +199,7 @@ configure encrypted volumes | yes | create encrypted volumes | sda5 | done | fin
 
 **LVMGroup-root	254:1	0	10G		0	lvm		/**
 
-configure the logical volume manager | yes | create logical volume | "LVMGroup" | sda5 create logical volume | LVMGroup | "root" | 10g
+configure the logical volume manager | yes | create logical volume | "LVMGroup" | sda5 create logical volume | LVMGroup | "root" | 10.7g
 
 **LVMGroup-swap	254:2	0	2.3G	0	lvm		[SWAP]**
 
@@ -207,23 +207,23 @@ create logical volume | LVMGroup | "swap" | 2.5g , when all LV done, use as: | s
 
 **LVMGroup-home	254:3	0	5G		0	lvm		/home**
 
-create logical volume | LVMGroup | "home" | 5g , when all LV done, use as: | ext4 | mount point /home
+create logical volume | LVMGroup | "home" | 5.4g , when all LV done, use as: | ext4 | mount point /home
 
 **LVMGroup-var	254:4	0	3G		0	lvm		/var**
 
-create logical volume | LVMGroup | "var" | 3g , when all LV done, use as: | ext4 | mount point /var
+create logical volume | LVMGroup | "var" | 3.2g , when all LV done, use as: | ext4 | mount point /var
 
 **LVMGroup-srv	254:5	0	3G		0	lvm		/srv**
 
-create logical volume | LVMGroup | "srv" | 3g , when all LV done, use as: | ext4 | mount point /srv
+create logical volume | LVMGroup | "srv" | 3.2g , when all LV done, use as: | ext4 | mount point /srv
 
 **LVMGroup-tmp	254:6	0	3G		0	lvm		/tmp**
 
-create logical volume | LVMGroup | "tmp" | 3g , when all LV done, use as: | ext4 | mount point /tmp
+create logical volume | LVMGroup | "tmp" | 3.2g , when all LV done, use as: | ext4 | mount point /tmp
 
 **LVMGroup-var--log	254:7	0	4G		0	lvm		/var/log**
 
-create logical volume | LVMGroup | "var-log" | 4g , when all LV done, use as: | ext4 | mount point enter manually "/var/log"
+create logical volume | LVMGroup | "var-log" | 4.3g , when all LV done, use as: | ext4 | mount point enter manually "/var/log"
 
 **sda2	8:2		0	1K		0	part**
 
@@ -545,7 +545,7 @@ you can check which group a user belongs to
 
 	groups
 
-you can check if the password rules work in the user
+you can check if the password rules work on the new user
 
 	chage -l new_username
 
@@ -650,7 +650,7 @@ this is that script, if you want to know what each command does go [HERE](#scrip
 	$'\n#LVM use: ' `lsblk |grep lvm | awk '{if ($1) {print "yes";exit;} else {print "no"} }'` \
 	$'\n#Connection TCP:' `netstat -an | grep ESTABLISHED |  wc -l` \
 	$'\n#User log: ' `who | cut -d " " -f 1 | sort -u | wc -l` \
-	$'\nNetwork: IP ' `hostname -I`"("`ip a | grep link/ether | awk '{print $2}'`")" \
+	$'\n#Network: IP ' `hostname -I`"("`ip a | grep link/ether | awk '{print $2}'`")" \
 	$'\n#Sudo:  ' `grep 'sudo ' /var/log/auth.log | wc -l`
 
 This file is named monitoring.sh and placed in /usr/local/bin/
@@ -706,7 +706,7 @@ first off let's install PHP, you need to install the sury package this is the PH
 	sudo curl -sSL https://packages.sury.org/php/README.txt | sudo bash -x
 	sudo apt update
 
-curl is a tool for transfering data from or to a server, the options -sSL -s goes for sient to run in silent mode, -S show error when used with -s will show error if it fails, if the http server reports that the requested page has moved to a different location this option will make curl redo the request on the new place.
+curl is a tool for transfering data from or to a server, the options -sSL -s goes for silent to run in silent mode, -S show error when used with -s will show error if it fails, if the http server reports that the requested page has moved to a different location this option will make curl redo the request on the new place.
 
 these options are not necessary and are only there in case of an error, the pipe to sudo bash -x will execute the script fetched from the address as it is read. 
 
@@ -731,6 +731,7 @@ then install lighttpd
 then allow http port 80 through UFW
 
 	sudo ufw allow http
+	sudo ufw allow 80
 	sudo ufw status
 
 then forward host port to guest port 
@@ -843,7 +844,7 @@ here is the script, let's go trough each command:
 	$'\n#LVM use: ' `lsblk |grep lvm | awk '{if ($1) {print "yes";exit;} else {print "no"} }'` \
 	$'\n#Connection TCP:' `netstat -an | grep ESTABLISHED |  wc -l` \
 	$'\n#User log: ' `who | cut -d " " -f 1 | sort -u | wc -l` \
-	$'\nNetwork: IP ' `hostname -I`"("`ip a | grep link/ether | awk '{print $2}'`")" \
+	$'\n#Network: IP ' `hostname -I`"("`ip a | grep link/ether | awk '{print $2}'`")" \
 	$'\n#Sudo:  ' `grep 'sudo ' /var/log/auth.log | wc -l`
 
 first off the shebang giving the path of the shell and the interpreter bash
@@ -888,7 +889,7 @@ newline, substitute to top command displaying the Linux processes with the optio
 
 -	**Batch-mode:** Starts top in Batch mode, in this mode top will not accept input and runs until the iterations limit you've set with the '-n' option or until killed.
 
--	**Numer-of-iterations:** Specifies the maximum number of iterations or frames top should produce before ending.
+-	**Number-of-iterations:** Specifies the maximum number of iterations or frames top should produce before ending.
 
 -	**Single/Separate-Cpu-States:** Starts top with the last remembered Cpu states portion of the summary area reversed.
 
