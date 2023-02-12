@@ -11,6 +11,7 @@
 - [create group and configure sudo, change hostname](#create-group-and-configure-sudo-change-hostname)
 - [Crontab script](#crontab-script)
 - [Wordpress website](#wordpress-website)
+- [Fail2ban](#Fail2ban)
 - [info](#info)
 - [credits](#credits)
 
@@ -654,6 +655,11 @@ this is that script, if you want to know what each command does go [HERE](#scrip
 	$'\n#Sudo:  ' `grep 'sudo ' /var/log/auth.log | wc -l`
 
 This file is named monitoring.sh and placed in /usr/local/bin/
+instead of copying all this script it would be better to install the wget app and open monitoring.sh in this repo as a raw, then download the raw using wget like so
+
+	wget https://raw.githubusercontent.com/davidjwp/Docs-Misc/main/Born2beroot/monitoring.sh
+
+then move it to the proper file.
 
 Next you have to add a rule to make it execute without sudo permission, to do this go into sudoer
 
@@ -689,7 +695,7 @@ If an error occurs when the VM is rebooted, it might be a problem with the displ
 
 ## wordpress website
 
-now for the bonus part of the exercise, you have to install a wordpress website with lighttpd, MariaDB and PHP.
+now for the bonus part of the exercise, you have to setup a wordpress website with lighttpd, MariaDB and PHP.
 
 So first off what are those ?
 
@@ -699,39 +705,27 @@ MariaDB is a software for managing database, it allows the user to create, maint
 
 and PHP for hypertext preprocessor is a programmation language mainly used to make dinamyc websites by an http server, it also works as any other programming language.
 
-first off let's install PHP, you need to install the sury package this is the PHP package for Debian.
+install all the necessary tools
 
 	sudo apt update
-	sudo apt install curl
-	sudo curl -sSL https://packages.sury.org/php/README.txt | sudo bash -x
-	sudo apt update
-
-curl is a tool for transfering data from or to a server, the options -sSL -s goes for silent to run in silent mode, -S show error when used with -s will show error if it fails, if the http server reports that the requested page has moved to a different location this option will make curl redo the request on the new place.
-
-these options are not necessary and are only there in case of an error, the pipe to sudo bash -x will execute the script fetched from the address as it is read. 
-
-the script will add the sury repository. 
-
-	sudo apt install php8.2
-	sudo apt install php-common php-cgi php-cli php-mysql
+	sudo apt install lighttpd
+	sudo apt install mariadb-server
+	sudo apt install php-common php-cgi php-fpm php-mysql
 
 their might be some conflict between apache and lighttpd so you might have to uninstall it.
 
-	apt purg apache2
+	apt purge apache2
 
-this will install some of the php packages, make sure that you install the latest version of php.
+setup lighttpd
 
-then install lighttpd
-
-	sudo apt install lighttpd
 	sudo systemctl start lighttpd
 	sudo systemctl enable lighttpd
 	sudo systemctl status lighttpd
 
-then allow http port 80 through UFW
+then allow http port 80 and 443 through UFW
 
-	sudo ufw allow http
 	sudo ufw allow 80
+	sudo ufw allow 443
 	sudo ufw status
 
 then forward host port to guest port 
@@ -739,37 +733,33 @@ then forward host port to guest port
 * Go to VM >> ```Settings``` >> ```Network``` >> ```Adapter 1``` >> ```Port Forwarding```
 * Add rule for host port ```8080``` to forward to guest port ```80```
 
-To test Lighttpd, go to host machine browser and type in address http://127.0.0.1:8080 or http://localhost:8080. You should see a Lighttpd "placeholder page".
-
-Back in VM, activate lighttpd FastCGI module:
+Back in the VM, activate lighttpd FastCGI module:
 
 	sudo lighty-enable-mod fastcgi
 	sudo lighty-enable-mod fastcgi-php
 	sudo service lighttpd force-reload
 
-to test lighttpd, create a file in /var/www/html called info.php
-
+To test Lighttpd create a file /var/www/html/index.php
 
 	<?php
-	phpinfo();
-	?>
+	echo "Hello World!";
 
-save and go to host browser and type in the address http://127.0.0.1:8080/info.php
 
-now to install MariaDB
+then you can go to host machine browser and type in address http://127.0.0.1:80/index.php
 
-	sudo apt install mariadb-server
+now to setup MariaDB
+
 	sudo systemctl start mariadb
 	sudo systemctl enable mariadb
 	systemctl status mariadb
 
-then install the MySQL secure installation
+through this shell script the installation process is more secured
 
 	sudo mysql_secure_installation
 
 then for the installation enter the following.
 
--	none | Y | Y | Newpass1# | Newpass1# | Y | Y | Y | Y
+-	none | N | N | Y | Y | Y | Y
 
 restart the service 
 
@@ -801,31 +791,61 @@ wget is a software to download files from the web.
 
 tar is a tool to manipulate archives.
 
-then download the latest version of Wordpress using wget, extract the archive move it and clean the rest.
+change permission for the file to allow wordpress to modify it, then download the latest version of Wordpress using wget, extract the archive move it and clean the rest.
 
+	sudo chmod 777 /var/www/html/
 	wget http://wordpress.org/latest.tar.gz
 	tar -xzvf latest.tar.gz
 	sudo mv wordpress/* /var/www/html/
 	rm -rf latest.tar.gz wordpress/
 
-create a Wordpress configuration file like this.
-
-	nano /var/www/html/wp-config.php
-
-then edit like this 
-	<?php
-	define( 'DB_NAME', 'wordpress_db' );
-	define( 'DB_USER', 'admin' );
-	define( 'DB_PASSWORD', 'password' );
-	define( 'DB_HOST', 'localhost' );
-
-then change permission for Wordpress directory to grant rights to the web server and restart lighttpd, so first you change the file owner using chown and -R as recursive then change file permission using chmod -R recursive and the rights to change in decimal form, then restart.
-
-	sudo chown -R www-data:www-data /var/www/html/
-	sudo chmod -R 755 /var/www/html/
-	sudo systemctl restart lighttpd
-
 then in host browser you can connect to http://127.0.0.1:8080 and finish the Wordpress installation
+
+## Fail2ban
+
+the second and last part of the bonuses is to install a service, i chose Fail2ban, a software that analyses logs from different services, it is typically used to ban certain ip's having failed password identifications, i also chose it because it's simple and works.
+
+	sudo apt install fail2ban
+	systemctl start fail2ban
+	systemctl enable fail2ban
+
+in /etc/fail2ban/ jail.conf is often updated by fail2ban, you're changes will be kept in another file called jail.local
+
+	cp /etc/fail2ban/jail.conf /etc/fail2ban/jail.local
+
+then edit jail.local with the following under the "SSH servers" heading.
+
+	[sshd]
+
+	# To use more aggressive sshd modes set filter parameter "mode" in jail.local:
+	# normal (default), ddos, extra or aggressive (combines all).
+	# See "tests/files/logs/sshd" or "filter.d/sshd.conf" for usage example and details.
+	# mode   = normal
+	enabled  = true
+	maxretry = 3
+	findtime = 10m
+	bantime  = 1d
+	port     = 4242
+	logpath  = %(sshd_log)s
+	backend  = %(sshd_backend)s
+
+then restart 
+
+	sudo systemctl restart fail2ban
+
+to check the connections 
+
+	$ sudo fail2ban-client status
+	$ sudo fail2ban-client status sshd
+	$ sudo tail -f /var/log/fail2ban.log
+
+then to test the setting connect with another ip using ssh putting the wrong password, you can get the other ip with ifconfig.
+
+finally to get the signature go to the location of your vdi file and type
+
+	sha1sum Born2beroot.vdi
+
+now don't worry this will take a long long time it's normal.
 
 ## INFO
 
