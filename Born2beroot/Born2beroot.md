@@ -576,7 +576,6 @@ go to the sudoers file.
 
 and add the following lines to secure the path
 
-	Defaults	secure_path="..."
 	Defaults	passwd_tries=3
 
 secure paths is the path that the sudo command uses whenever it calls a command.
@@ -611,6 +610,10 @@ this gives you a lot of information not only of the hostname but of the whole ma
 now change the hostname like this.
 
 	hostnamectl set-hostname new_hostname
+
+if there is a problem with bus try this 
+
+	systemctl restart dbus
 
 then change the /etc/hosts file by going to.
 
@@ -687,7 +690,11 @@ Here the command crontab used with the option u for user then indicating root fo
 
 Then add the following line at the end 
 
-     */10 * * * * bash /usr/local/bin/monitoring.sh
+     */10 * * * * /usr/local/bin/monitoring.sh
+
+use this to give permission to execute 
+
+	sudo chmod +x /usr/local/bin/monitoring.sh
 
 If an error occurs when the VM is rebooted, it might be a problem with the display see [here](https://unix.stackexchange.com/questions/502540/why-does-drmvmw-host-log-vmwgfx-error-failed-to-send-host-log-message-sh)
 
